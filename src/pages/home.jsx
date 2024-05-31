@@ -2,6 +2,8 @@ import Navbar from "../components/navbar";
 import Button from "../components/button";
 import { Input } from "@/components/ui/input";
 import CardHome from "@/components/cardHome";
+import CardHomeWhy from "@/components/cardHomeWhy";
+import CardHomeArticle from "@/components/cardHomeArticle";
 
 function Home() {
   return (
@@ -99,6 +101,51 @@ function Home() {
             alt="Property Picture"
           />
         </div>
+      </div>
+      <div>
+        <p className="text-xl mx-5 my-5">Simulasi KPR</p>
+      </div>
+      <p className="text-2xl my-5 mx-5">Kenapa PropertEase?</p>
+      <div className="grid grid-cols-4">
+        <CardHomeWhy
+          titlesLabel="Aman & Mudah"
+          descLabel="Jual Properti Anda dengan aman dan mudah"
+        />
+        <CardHomeWhy
+          titlesLabel="Cepat & Terpercayas"
+          descLabel="Jual Properti Anda dengan Cepat dan Terpercaya"
+        />
+        <CardHomeWhy
+          titlesLabel="Kulitas Mitra Terbaik"
+          descLabel="Kualitas Mitra yang Baik"
+        />
+        <CardHomeWhy
+          titlesLabel="Simulasi KPR"
+          descLabel="Perhitungan yang lebih mudah dengan simulasi KPR"
+        />
+      </div>
+      <p className="mx-5 my-5 text-2xl">Artikel PropertEase</p>
+      <div className="grid grid-cols-4 mx-5">
+        <CardHomeArticle
+          src="src/assets/example-photo.jpeg"
+          titlesArticle="Apa Itu KPR? Ini Keunggulannya Sebelum Miliki Rumah Sendiri"
+          descArticle="berikut merupakan keunggulannya..."
+        />
+        <CardHomeArticle
+          src="src/assets/example-photo.jpeg"
+          titlesArticle="Apa Itu KPR? Ini Keunggulannya Sebelum Miliki Rumah Sendiri"
+          descArticle="berikut merupakan keunggulannya..."
+        />
+        <CardHomeArticle
+          src="src/assets/example-photo.jpeg"
+          titlesArticle="Apa Itu KPR? Ini Keunggulannya Sebelum Miliki Rumah Sendiri"
+          descArticle="berikut merupakan keunggulannya..."
+        />
+        <CardHomeArticle
+          src="src/assets/example-photo.jpeg"
+          titlesArticle="Apa Itu KPR? Ini Keunggulannya Sebelum Miliki Rumah Sendiri"
+          descArticle="berikut merupakan keunggulannya..."
+        />
       </div>
     </>
   );
