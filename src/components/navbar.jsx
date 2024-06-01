@@ -1,20 +1,27 @@
 import React from "react";
 import Button from "./button";
+import { Link } from "react-router-dom";
 
 export default function Navbar(props) {
   const { label } = props;
   return (
     <nav className=" bg-blue-primary flex justify-between items-center p-5 rounded-2xl m-5">
-      <div className="text-white font-bold text-3xl">PropertEase</div>
+      <Link className="text-white font-bold text-3xl" to="/">
+        PropertEase
+      </Link>
       <div>
-        <Button
-          label="Dijual"
+        <Link
+          to="/properti-dijual"
           className=" text-white px-4 hover:text-blue-primary hover:bg-white rounded-lg py-2 font-semibold"
-        />
-        <Button
-          label="Disewakan"
+        >
+          Dijual
+        </Link>
+        <Link
+          to="/properti-disewakan"
           className=" text-white px-4 hover:text-blue-primary hover:bg-white rounded-lg py-2 font-semibold"
-        />
+        >
+          Disewakan
+        </Link>
         <Button
           label="Pasang Iklan"
           className="text-white px-4 hover:text-blue-primary hover:bg-white rounded-lg py-2 font-semibold"
@@ -23,11 +30,12 @@ export default function Navbar(props) {
           label="Iklan Saya"
           className="text-white px-4 hover:text-blue-primary hover:bg-white rounded-lg py-2 font-semibold"
         />
-        <Button
+        <Link
           to="/login"
-          label="Login"
           className="text-blue-primary bg-white rounded-lg py-2 px-4 hover:bg-black hover:text-white font-semibold"
-        />
+        >
+          Login
+        </Link>
       </div>
     </nav>
   );

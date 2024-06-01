@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import CardHome from "@/components/cardHome";
 import CardHomeWhy from "@/components/cardHomeWhy";
 import CardHomeArticle from "@/components/cardHomeArticle";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -20,14 +21,18 @@ function Home() {
             </p>
           </div>
           <div className="flex items-center justify-center gap-10 my-10">
-            <Button
-              label="Dijual"
+            <Link
+              to="/properti-dijual"
               className="text-black bg-white px-6 py-2 rounded-xl"
-            />
-            <Button
-              label="Disewakan"
+            >
+              Dijual
+            </Link>
+            <Link
+              to="/properti-disewakan"
               className="text-black bg-white px-6 py-2 rounded-xl"
-            />
+            >
+              Disewakan
+            </Link>
           </div>
           <div className="flex justify-center pb-5">
             <div className=" relative w-2/6 ">
@@ -58,10 +63,12 @@ function Home() {
       <div className=" bg-slate-400 mx-5 mt-5">
         <div className="flex items-center gap-3 px-5 py-5">
           <p className="text-black text-xl">Properti Pilihan</p>
-          <Button
-            label="lihat beberapa Properti"
-            className="bg-white border border-blue-secondary rounded-2xl px-3 py-1 text-blue-secondary"
-          />
+          <Link
+            to="/properti-pilihan"
+            className="bg-white border border-blue-secondary hover:border-white hover:text-white hover:bg-blue-secondary rounded-2xl px-3 py-1 text-blue-secondary"
+          >
+            Lihat Beberapa Properti
+          </Link>
         </div>
         <div className="pl-5 pb-5 grid grid-cols-4">
           <CardHome
