@@ -8,7 +8,7 @@ import CardHomeArticle from "@/components/cardHomeArticle";
 function Home() {
   return (
     <>
-      <Navbar label="PropertEase" />
+      <Navbar />
       <div className=" bg-blue-primary mx-5 rounded-2xl ">
         <div>
           <div className="pt-5 text-center">
@@ -125,7 +125,7 @@ function Home() {
         />
       </div>
       <p className="mx-5 my-5 text-2xl">Artikel PropertEase</p>
-      <div className="grid grid-cols-4 mx-5">
+      <div className="grid grid-cols-4 mx-5 my-5">
         <CardHomeArticle
           src="src/assets/example-photo.jpeg"
           titlesArticle="Apa Itu KPR? Ini Keunggulannya Sebelum Miliki Rumah Sendiri"
