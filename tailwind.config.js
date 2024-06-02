@@ -8,6 +8,7 @@ export default {
         "blue-secondary": "#0882D4",
         "green-primary": "#5BEA44",
         "gray-primary": "#F0EFEF",
+        "gray-secondary": "#C9C9C9",
       },
     },
   },

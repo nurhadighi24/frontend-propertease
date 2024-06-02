@@ -7,3 +7,8 @@
 * {
   font-family: "Kanit", sans-serif;
 }
+
+input[type="radio"]:checked + label {
+  background-color: #28303f; /* Warna latar belakang saat tombol radio diperiksa */
+  color: #ffffff; /* Warna teks saat tombol radio diperiksa */
+}

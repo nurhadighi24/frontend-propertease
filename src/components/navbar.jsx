@@ -22,10 +22,12 @@ export default function Navbar(props) {
         >
           Disewakan
         </Link>
-        <Button
-          label="Pasang Iklan"
+        <Link
+          to="/pasang-iklan"
           className="text-white px-4 hover:text-blue-primary hover:bg-white rounded-lg py-2 font-semibold"
-        />
+        >
+          Pasang Iklan
+        </Link>
         <Button
           label="Iklan Saya"
           className="text-white px-4 hover:text-blue-primary hover:bg-white rounded-lg py-2 font-semibold"

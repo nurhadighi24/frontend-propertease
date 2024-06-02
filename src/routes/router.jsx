@@ -2,6 +2,7 @@ import ChoosenProperty from "@/pages/choosenProperty";
 import DetailProperty from "@/pages/detailProperty";
 import Home from "@/pages/home";
 import Login from "@/pages/login";
+import PasangIklan from "@/pages/pasangIklan";
 import Register from "@/pages/register";
 import RentProperty from "@/pages/rentProperty";
 import SaleProperty from "@/pages/saleProperty";
@@ -37,6 +38,10 @@ export default function Router() {
     {
       path: "/properti-disewakan",
       element: <RentProperty />,
+    },
+    {
+      path: "/pasang-iklan",
+      element: <PasangIklan />,
     },
   ]);
   return <RouterProvider router={router} />;
