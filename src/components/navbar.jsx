@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function Navbar(props) {
   const { label } = props;
   return (
-    <nav className=" bg-blue-primary flex justify-between items-center p-5 rounded-2xl m-5">
+    <nav className=" bg-blue-primary flex justify-between items-center p-5 rounded-2xl m-5 sticky top-2">
       <Link className="text-white font-bold text-3xl" to="/">
         PropertEase
       </Link>
@@ -28,10 +28,12 @@ export default function Navbar(props) {
         >
           Pasang Iklan
         </Link>
-        <Button
-          label="Iklan Saya"
+        <Link
+          to="/iklan-saya"
           className="text-white px-4 hover:text-blue-primary hover:bg-white rounded-lg py-2 font-semibold"
-        />
+        >
+          Iklan Saya
+        </Link>
         <Link
           to="/login"
           className="text-blue-primary bg-white rounded-lg py-2 px-4 hover:bg-black hover:text-white font-semibold"

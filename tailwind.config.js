@@ -9,6 +9,8 @@ export default {
         "green-primary": "#5BEA44",
         "gray-primary": "#F0EFEF",
         "gray-secondary": "#C9C9C9",
+        "green-edit": "#00791B",
+        "red-delete": "#FF0000",
       },
     },
   },
