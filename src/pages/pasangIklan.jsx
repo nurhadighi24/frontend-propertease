@@ -2,12 +2,37 @@ import Button from "@/components/button";
 import Navbar from "@/components/navbar";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { getProvinces } from "@/utils/apis/wilayahIndonesia";
+import { useEffect, useState } from "react";
 
 import { IoCloudUpload } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
 export default function PasangIklan() {
+  const [provinces, setProvinces] = useState([]);
+
+  useEffect(() => {
+    fetchDataProvinces();
+  }, []);
+
+  async function fetchDataProvinces() {
+    try {
+      const result = await getProvinces();
+      setProvinces(result.data);
+      console.log(result.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <Navbar />
@@ -165,14 +190,27 @@ export default function PasangIklan() {
             <p className="font-bold">
               Provinsi <span className="text-red-600">*</span>
             </p>
-            <Input type="text" className="w-max" />
+            <Select>
+              <SelectTrigger className="w-max">
+                <SelectValue placeholder="Provinsi" />
+              </SelectTrigger>
+              <SelectContent>
+                {provinces.map((province) => (
+                  <SelectItem key={province.code} value={province.name}>
+                    {province.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
+
           <div>
             <p className="font-bold">
-              Kota <span className="text-red-600">*</span>
+              Kota/Kabupaten <span className="text-red-600">*</span>
             </p>
             <Input type="text" className="w-max" />
           </div>
+
           <div>
             <p className="font-bold">
               Kelurahan <span className="text-red-600">*</span>
