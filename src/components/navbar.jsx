@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function Navbar(props) {
   const { label } = props;
   return (
-    <nav className=" bg-blue-primary flex justify-between items-center p-5 rounded-2xl m-5 sticky top-2">
+    <nav className=" bg-blue-primary flex justify-between items-center p-5 rounded-2xl m-5 ">
       <Link className="text-white font-bold text-3xl" to="/">
         PropertEase
       </Link>

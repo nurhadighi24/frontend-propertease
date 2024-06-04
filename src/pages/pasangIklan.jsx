@@ -1,4 +1,5 @@
 import Button from "@/components/button";
+import MapInput from "@/components/map/mapInput";
 import Navbar from "@/components/navbar";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -18,6 +19,13 @@ import { Link } from "react-router-dom";
 
 export default function PasangIklan() {
   const [provinces, setProvinces] = useState([]);
+  const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState(null);
+
+  const handleLatLngChange = (newLat, newLng) => {
+    setLat(newLat);
+    setLng(newLng);
+  };
 
   useEffect(() => {
     fetchDataProvinces();
@@ -33,10 +41,14 @@ export default function PasangIklan() {
     }
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <>
       <Navbar />
-      <form className="m-20">
+      <form className="m-20" onSubmit={handleSubmit}>
         <p className=" text-5xl font-bold">
           Properti yang ingin anda tawarkan?
         </p>
@@ -224,6 +236,21 @@ export default function PasangIklan() {
             <Input type="text" className="w-3/6 mb-10" />
           </div>
         </div>
+        <div className="flex items-center w-max gap-5">
+          <Input
+            placeholder="Latitude"
+            value={lat || ""}
+            onChange={(e) => setLat(e.target.value)}
+          />
+          <Input
+            placeholder="Longitude"
+            value={lng || ""}
+            onChange={(e) => setLng(e.target.value)}
+          />
+        </div>
+        <div className="my-5">
+          <MapInput lat={lat} lng={lng} onLatLngChange={handleLatLngChange} />
+        </div>
         <div>
           <p className="font-bold text-3xl">
             Unggah gambar dan kebutuhan media lainnya
@@ -255,7 +282,6 @@ export default function PasangIklan() {
                 id="inputImageProducts"
                 type="file"
                 className="hidden"
-                name="image"
                 multiple
               />
             </label>
