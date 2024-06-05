@@ -6,6 +6,7 @@ import Button from "@/components/button";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Footer from "@/components/footer";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -18,7 +19,7 @@ export default function Register() {
   return (
     <>
       <Navbar />
-      <div className="bg-white rounded-2xl shadow-2xl mx-5 mt-20 flex flex-col items-center ">
+      <div className="bg-white rounded-2xl shadow-2xl mx-5 my-20 flex flex-col items-center ">
         <div>
           <p className="text-center text-3xl font-bold pt-5">Daftar</p>
           <p>Daftarkan diri anda sekarang!</p>
@@ -60,6 +61,7 @@ export default function Register() {
           </p>
         </form>
       </div>
+      <Footer />
     </>
   );
 }

@@ -5,6 +5,7 @@ import CardHome from "@/components/cardHome";
 import CardHomeWhy from "@/components/cardHomeWhy";
 import CardHomeArticle from "@/components/cardHomeArticle";
 import { Link } from "react-router-dom";
+import Footer from "@/components/footer";
 
 function Home() {
   return (
@@ -154,6 +155,7 @@ function Home() {
           descArticle="berikut merupakan keunggulannya..."
         />
       </div>
+      <Footer />
     </>
   );
 }

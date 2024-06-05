@@ -1,4 +1,5 @@
 import CardChoosen from "@/components/cardChoosen";
+import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { Input } from "@/components/ui/input";
 import React from "react";
@@ -55,6 +56,7 @@ export default function ChoosenProperty() {
         descChoosen="Hunian nyaman dan aman, bebas banjir, strategis, harga all in. Riverside Residence dengan 2 lantai, 2-3 kamar tidur serta dilengkapi dengan 1-2 kamar mandi."
         priceChoosen="Rp365.000.000"
       />
+      <Footer />
     </>
   );
 }

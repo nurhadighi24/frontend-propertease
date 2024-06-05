@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Footer from "@/components/footer";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -19,7 +20,7 @@ export default function Login() {
   return (
     <>
       <Navbar />
-      <div className="bg-white rounded-2xl shadow-2xl mx-5 mt-20 flex flex-col items-center ">
+      <div className="bg-white rounded-2xl shadow-2xl mx-5 my-20 flex flex-col items-center ">
         <div>
           <p className="text-center text-3xl font-bold py-5">
             Sudah pernah bergabung sebelumnya? Yuk Masuk
@@ -60,6 +61,7 @@ export default function Login() {
           </Link>
         </p>
       </div>
+      <Footer />
     </>
   );
 }

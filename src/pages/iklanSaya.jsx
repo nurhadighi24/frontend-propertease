@@ -6,6 +6,7 @@ import { BsFillPencilFill } from "react-icons/bs";
 import { FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Button from "@/components/button";
+import Footer from "@/components/footer";
 
 export default function IklanSaya() {
   return (
@@ -49,6 +50,7 @@ export default function IklanSaya() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

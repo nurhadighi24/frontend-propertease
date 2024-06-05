@@ -1,4 +1,5 @@
 import Button from "@/components/button";
+import Footer from "@/components/footer";
 import MapInput from "@/components/map/mapInput";
 import Navbar from "@/components/navbar";
 import { Input } from "@/components/ui/input";
@@ -304,6 +305,7 @@ export default function PasangIklan() {
           />
         </div>
       </form>
+      <Footer />
     </>
   );
 }

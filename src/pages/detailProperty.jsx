@@ -3,6 +3,7 @@ import Navbar from "@/components/navbar";
 import { FaLocationDot } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { IoLogoWhatsapp } from "react-icons/io";
+import Footer from "@/components/footer";
 
 export default function DetailProperty() {
   return (
@@ -51,6 +52,7 @@ export default function DetailProperty() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
