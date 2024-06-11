@@ -7,6 +7,7 @@ import PasangIklan from "@/pages/pasangIklan";
 import Register from "@/pages/register";
 import RentProperty from "@/pages/rentProperty";
 import SaleProperty from "@/pages/saleProperty";
+import UpdateProfile from "@/pages/updateProfile";
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
@@ -47,6 +48,10 @@ export default function Router() {
     {
       path: "/iklan-saya",
       element: <IklanSaya />,
+    },
+    {
+      path: "/update-profile",
+      element: <UpdateProfile />,
     },
   ]);
   return <RouterProvider router={router} />;

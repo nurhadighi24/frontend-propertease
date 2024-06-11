@@ -40,6 +40,12 @@ export default function Navbar(props) {
         >
           Login
         </Link>
+        <Link
+          to="/update-profile"
+          className="text-blue-primary bg-white rounded-lg py-2 px-4 hover:bg-black hover:text-white font-semibold"
+        >
+          Update Profile
+        </Link>
       </div>
     </nav>
   );
