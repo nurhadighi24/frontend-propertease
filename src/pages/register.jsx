@@ -83,6 +83,7 @@ export default function Register() {
           </div>
         ),
       });
+      setIsLoading(false);
       reset();
     } catch (error) {
       console.log(error);

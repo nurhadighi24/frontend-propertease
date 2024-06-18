@@ -1,9 +1,20 @@
 import React from "react";
 import Button from "./button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useToken } from "@/utils/context/tokenContext";
 
 export default function Navbar(props) {
   const { label } = props;
+  const navigate = useNavigate();
+  const { tokenLocal } = useToken();
+
+  const userName = JSON.parse(localStorage.getItem("user"));
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
+    navigate("/");
+  };
   return (
     <nav className=" bg-blue-primary flex justify-between items-center p-5 rounded-2xl m-5 ">
       <Link className="text-white font-bold text-3xl" to="/">
@@ -34,18 +45,32 @@ export default function Navbar(props) {
         >
           Iklan Saya
         </Link>
-        <Link
-          to="/login"
-          className="text-blue-primary bg-white rounded-lg py-2 px-4 hover:bg-black hover:text-white font-semibold"
-        >
-          Login
-        </Link>
-        <Link
-          to="/update-profile"
-          className="text-blue-primary bg-white rounded-lg py-2 px-4 hover:bg-black hover:text-white font-semibold"
-        >
-          Update Profile
-        </Link>
+        {tokenLocal && userName ? (
+          <>
+            <Link
+              to="/update-profile"
+              className="text-blue-primary bg-white rounded-lg py-2 px-4 hover:bg-black hover:text-white font-semibold"
+            >
+              {userName}
+            </Link>
+            <Link
+              to="/"
+              onClick={handleLogout}
+              className="text-blue-primary bg-white rounded-lg py-2 px-4 hover:bg-black hover:text-white font-semibold"
+            >
+              Logout
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link
+              to="/login"
+              className="text-blue-primary bg-white rounded-lg py-2 px-4 hover:bg-black hover:text-white font-semibold"
+            >
+              Login
+            </Link>
+          </>
+        )}
       </div>
     </nav>
   );

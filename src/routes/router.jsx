@@ -8,10 +8,14 @@ import Register from "@/pages/register";
 import RentProperty from "@/pages/rentProperty";
 import SaleProperty from "@/pages/saleProperty";
 import UpdateProfile from "@/pages/updateProfile";
+import { useToken } from "@/utils/context/tokenContext";
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 export default function Router() {
+  const { tokenLocal } = useToken();
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -42,16 +46,17 @@ export default function Router() {
       element: <RentProperty />,
     },
     {
-      path: "/pasang-iklan",
-      element: <PasangIklan />,
-    },
-    {
       path: "/iklan-saya",
-      element: <IklanSaya />,
+      element: tokenLocal ? <IklanSaya /> : <Navigate to="/login" />,
     },
     {
       path: "/update-profile",
       element: <UpdateProfile />,
+    },
+
+    {
+      path: "/pasang-iklan",
+      element: tokenLocal ? <PasangIklan /> : <Navigate to="/login" />,
     },
   ]);
   return <RouterProvider router={router} />;
