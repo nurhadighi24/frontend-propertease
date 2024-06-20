@@ -126,9 +126,6 @@ export default function Login() {
               )}
             </div>
           </div>
-          <div className="w-full flex justify-end">
-            <Button label="Lupa Password?" className=" text-end" />
-          </div>
           <div className="w-full flex justify-center my-5">
             {isLoading ? (
               <Loading />
