@@ -141,7 +141,7 @@ export default function Login() {
 
         <p className="my-5">
           Belum punya akun?{" "}
-          <Link className="font-bold" to="/register">
+          <Link className="font-bold text-lg" to="/register">
             Daftar
           </Link>
         </p>

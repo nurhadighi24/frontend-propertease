@@ -172,7 +172,7 @@ export default function Register() {
           </div>
           <p className="w-full flex justify-center">
             Sudah punya akun?{" "}
-            <Link className="font-bold" to="/login" type="submit">
+            <Link className="font-bold text-lg" to="/login" type="submit">
               Masuk
             </Link>
           </p>

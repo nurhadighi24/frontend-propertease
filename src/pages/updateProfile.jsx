@@ -38,15 +38,9 @@ export default function UpdateProfile() {
         </div>
         <div className="flex items-center justify-center gap-10 my-5">
           <div>
-            <p>Kata sandi</p>
-            <Input type="password" />
-          </div>
-          <div>
             <p>Email</p>
             <Input type="email" />
           </div>
-        </div>
-        <div className="flex items-center justify-center gap-10 my-5">
           <div>
             <p>No. Handphone</p>
             <Input type="text" />
