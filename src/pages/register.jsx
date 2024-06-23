@@ -92,7 +92,7 @@ export default function Register() {
         title: (
           <div className="flex items-center">
             <CrossCircledIcon />
-            <span className="ml-2">Gagal Membuat Akun!</span>
+            <span className="ml-2">{error.message}</span>
           </div>
         ),
       });
