@@ -10,7 +10,7 @@ export const setAxiosConfig = (token, backendUrl) => {
 };
 
 axiosWithConfig.interceptors.request.use((axiosConfig) => {
-  axiosConfig.baseUrl = baseUrl;
+  axiosConfig.baseURL = baseUrl;
   axiosConfig.headers.Authorization = `Bearer ${bearerToken}`;
 
   return axiosConfig;

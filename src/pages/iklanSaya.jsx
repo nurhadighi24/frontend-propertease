@@ -7,6 +7,8 @@ import { FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Button from "@/components/button";
 import Footer from "@/components/footer";
+import { useEffect, useState } from "react";
+import { getPropertyIklanSaya } from "@/utils/apis/property/propertyIklanSaya";
 
 export default function IklanSaya() {
   return (
