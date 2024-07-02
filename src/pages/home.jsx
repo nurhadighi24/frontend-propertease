@@ -7,7 +7,34 @@ import CardHomeArticle from "@/components/cardHomeArticle";
 import { Link } from "react-router-dom";
 import Footer from "@/components/footer";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Autoplay, Pagination } from "swiper/modules";
+import { useEffect, useState } from "react";
+import { getArticle } from "@/utils/apis/artikel/artikel";
+import { Loading } from "@/components/loading";
+
 function Home() {
+  const [article, setArticle] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function fetchData() {
+    try {
+      const resultArticle = await getArticle();
+      console.log(resultArticle.data);
+      setArticle(resultArticle.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  }
+
   return (
     <>
       <Navbar />
@@ -133,28 +160,32 @@ function Home() {
         />
       </div>
       <p className="mx-5 my-5 text-2xl">Artikel PropertEase</p>
-      <div className="grid grid-cols-4 mx-5 my-5">
-        <CardHomeArticle
-          src="src/assets/example-photo.jpeg"
-          titlesArticle="Apa Itu KPR? Ini Keunggulannya Sebelum Miliki Rumah Sendiri"
-          descArticle="berikut merupakan keunggulannya..."
-        />
-        <CardHomeArticle
-          src="src/assets/example-photo.jpeg"
-          titlesArticle="Apa Itu KPR? Ini Keunggulannya Sebelum Miliki Rumah Sendiri"
-          descArticle="berikut merupakan keunggulannya..."
-        />
-        <CardHomeArticle
-          src="src/assets/example-photo.jpeg"
-          titlesArticle="Apa Itu KPR? Ini Keunggulannya Sebelum Miliki Rumah Sendiri"
-          descArticle="berikut merupakan keunggulannya..."
-        />
-        <CardHomeArticle
-          src="src/assets/example-photo.jpeg"
-          titlesArticle="Apa Itu KPR? Ini Keunggulannya Sebelum Miliki Rumah Sendiri"
-          descArticle="berikut merupakan keunggulannya..."
-        />
-      </div>
+
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <Swiper
+            slidesPerView={3}
+            spaceBetween={30}
+            autoplay={{ delay: 2500, disableOnInteraction: false }}
+            pagination={{ clickable: true, dynamicBullets: true }}
+            modules={[Pagination, Autoplay]}
+          >
+            {article.map((item, index) => (
+              <SwiperSlide key={index}>
+                <CardHomeArticle
+                  src={item.image}
+                  titlesArticle={item.title}
+                  descArticle={item.description}
+                  alt="Article Image"
+                ></CardHomeArticle>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </>
+      )}
+
       <Footer />
     </>
   );
