@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import CardHome from "@/components/cardHome";
 import CardHomeWhy from "@/components/cardHomeWhy";
 import CardHomeArticle from "@/components/cardHomeArticle";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "@/components/footer";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -18,12 +18,22 @@ import { getProperties } from "@/utils/apis/property/properties";
 import { useToken } from "@/utils/context/tokenContext";
 import { setAxiosConfig } from "@/utils/axiosWithConfig";
 import formatCurrency from "@/utils/currencyIdr";
+import slugify from "slugify";
 
 function Home() {
   const [article, setArticle] = useState([]);
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const { tokenLocal } = useToken();
+  const navigate = useNavigate();
+
+  function generateSlug(name) {
+    return slugify(name, { lower: true });
+  }
+
+  const toDetailProperties = (propertiesId, slug) => {
+    navigate(`/detail-properti/${propertiesId}/${slug}`);
+  };
 
   useEffect(() => {
     fetchData();
@@ -127,6 +137,9 @@ function Home() {
                     buildingArea={item.building_area}
                     landArea={item.land_area}
                     price={formatCurrency(item.price)}
+                    onClick={() =>
+                      toDetailProperties(item.id, generateSlug(item.name))
+                    }
                   ></CardHome>
                 </SwiperSlide>
               ))}

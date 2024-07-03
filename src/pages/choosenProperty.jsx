@@ -8,11 +8,22 @@ import { setAxiosConfig } from "@/utils/axiosWithConfig";
 import { useToken } from "@/utils/context/tokenContext";
 import formatCurrency from "@/utils/currencyIdr";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import slugify from "slugify";
 
 export default function ChoosenProperty() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const { tokenLocal } = useToken();
+  const navigate = useNavigate();
+
+  function generateSlug(name) {
+    return slugify(name, { lower: true });
+  }
+
+  const toDetailProperties = (propertiesId, slug) => {
+    navigate(`/detail-properti/${propertiesId}/${slug}`);
+  };
 
   useEffect(() => {
     fetchData();
@@ -68,11 +79,13 @@ export default function ChoosenProperty() {
               locationChoosen={item.address}
               descChoosen={item.description}
               priceChoosen={formatCurrency(item.price)}
+              onClick={() =>
+                toDetailProperties(item.id, generateSlug(item.name))
+              }
             />
           ))}
         </>
       )}
-
       <Footer />
     </>
   );

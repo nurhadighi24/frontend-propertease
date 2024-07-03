@@ -10,3 +10,15 @@ export const getProperties = async () => {
     throw Error(error.response.data.message);
   }
 };
+
+export const getDetailProperties = async (id) => {
+  try {
+    const response = await axiosWithConfig.get(
+      `https://skkm.online/api/properties/${id}`
+    );
+
+    return response.data;
+  } catch (error) {
+    throw Error(error.response.data.message);
+  }
+};

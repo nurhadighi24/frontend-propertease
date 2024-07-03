@@ -34,7 +34,7 @@ export default function Router() {
       element: <ChoosenProperty />,
     },
     {
-      path: "/detail-properti",
+      path: "/detail-properti/:id/:slug",
       element: <DetailProperty />,
     },
     {

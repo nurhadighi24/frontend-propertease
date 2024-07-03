@@ -1,10 +1,20 @@
 import React from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import Button from "./button";
+import { Link } from "react-router-dom";
 
 export default function CardHome(props) {
-  const { src, titles, location, landArea, buildingArea, bedroom, price, alt } =
-    props;
+  const {
+    src,
+    titles,
+    location,
+    landArea,
+    buildingArea,
+    bedroom,
+    price,
+    alt,
+    onClick,
+  } = props;
   return (
     <div className="bg-white  w-max rounded-xl shadow-xl">
       <img src={src} alt={alt} className=" w-96 rounded-t-xl" />
@@ -31,10 +41,12 @@ export default function CardHome(props) {
           <p className=" font-bold">{price}</p>
         </div>
         <div className="flex justify-center py-5">
-          <Button
-            label="Info Selengkapnya"
+          <Link
+            onClick={onClick}
             className="border border-blue-secondary text-blue-secondary rounded-xl px-10 py-1"
-          />
+          >
+            Info Selengkapnya
+          </Link>
         </div>
       </div>
     </div>

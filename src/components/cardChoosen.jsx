@@ -12,6 +12,7 @@ export default function CardChoosen(props) {
     locationChoosen,
     descChoosen,
     priceChoosen,
+    onClick,
   } = props;
 
   return (
@@ -31,7 +32,7 @@ export default function CardChoosen(props) {
         <p className="font-bold text-4xl my-3">{priceChoosen}</p>
         <div className=" flex items-center justify-center gap-5">
           <Link
-            to="/detail-properti"
+            onClick={onClick}
             className="border border-blue-secondary rounded-xl text-blue-secondary px-3 py-2 text-xl"
           >
             Selengkapnya
