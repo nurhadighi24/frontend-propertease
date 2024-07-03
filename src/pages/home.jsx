@@ -10,14 +10,20 @@ import Footer from "@/components/footer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Autoplay, Pagination } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { useEffect, useState } from "react";
 import { getArticle } from "@/utils/apis/artikel/artikel";
 import { Loading } from "@/components/loading";
+import { getProperties } from "@/utils/apis/property/properties";
+import { useToken } from "@/utils/context/tokenContext";
+import { setAxiosConfig } from "@/utils/axiosWithConfig";
+import formatCurrency from "@/utils/currencyIdr";
 
 function Home() {
   const [article, setArticle] = useState([]);
+  const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { tokenLocal } = useToken();
 
   useEffect(() => {
     fetchData();
@@ -25,8 +31,10 @@ function Home() {
 
   async function fetchData() {
     try {
+      setAxiosConfig(tokenLocal, "https://skkm.online");
+      const resultProperties = await getProperties();
       const resultArticle = await getArticle();
-      console.log(resultArticle.data);
+      setProperties(resultProperties.data);
       setArticle(resultArticle.data);
       setLoading(false);
     } catch (error) {
@@ -98,44 +106,33 @@ function Home() {
             Lihat Beberapa Properti
           </Link>
         </div>
-        <div className="pl-5 pb-5 grid grid-cols-4">
-          <CardHome
-            src="src/assets/example-photo.jpeg"
-            titles="Riverside Residence"
-            location="Tangerang"
-            unitWide="20-60 m2"
-            bedroom="3"
-            price="Rp500.000.000"
-            alt="Property Picture"
-          />
-          <CardHome
-            src="src/assets/example-photo.jpeg"
-            titles="Riverside Residence"
-            location="Tangerang"
-            unitWide="20-60 m2"
-            bedroom="3"
-            price="Rp500.000.000"
-            alt="Property Picture"
-          />
-          <CardHome
-            src="src/assets/example-photo.jpeg"
-            titles="Riverside Residence"
-            location="Tangerang"
-            unitWide="20-60 m2"
-            bedroom="3"
-            price="Rp500.000.000"
-            alt="Property Picture"
-          />
-          <CardHome
-            src="src/assets/example-photo.jpeg"
-            titles="Riverside Residence"
-            location="Tangerang"
-            unitWide="20-60 m2"
-            bedroom="3"
-            price="Rp500.000.000"
-            alt="Property Picture"
-          />
-        </div>
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            <Swiper
+              navigation={true}
+              slidesPerView={4}
+              autoplay={{ delay: 2500, disableOnInteraction: false }}
+              pagination={{ clickable: true, dynamicBullets: true }}
+              modules={[Pagination, Autoplay, Navigation]}
+            >
+              {properties.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <CardHome
+                    src={`https://skkm.online/storage/${item.image}`}
+                    titles={item.name}
+                    location={item.address}
+                    bedroom={item.bedrooms}
+                    buildingArea={item.building_area}
+                    landArea={item.land_area}
+                    price={formatCurrency(item.price)}
+                  ></CardHome>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </>
+        )}
       </div>
       <div>
         <p className="text-xl mx-5 my-5">Simulasi KPR</p>

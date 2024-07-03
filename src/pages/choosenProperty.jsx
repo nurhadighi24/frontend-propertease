@@ -1,10 +1,34 @@
 import CardChoosen from "@/components/cardChoosen";
 import Footer from "@/components/footer";
+import { Loading } from "@/components/loading";
 import Navbar from "@/components/navbar";
 import { Input } from "@/components/ui/input";
-import React from "react";
+import { getProperties } from "@/utils/apis/property/properties";
+import { setAxiosConfig } from "@/utils/axiosWithConfig";
+import { useToken } from "@/utils/context/tokenContext";
+import formatCurrency from "@/utils/currencyIdr";
+import React, { useEffect, useState } from "react";
 
 export default function ChoosenProperty() {
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { tokenLocal } = useToken();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function fetchData() {
+    try {
+      setAxiosConfig(tokenLocal, "https://skkm.online");
+      const resultProperties = await getProperties();
+      setProperties(resultProperties.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  }
   return (
     <>
       <Navbar />
@@ -32,30 +56,23 @@ export default function ChoosenProperty() {
           </svg>
         </div>
       </div>
-      <CardChoosen
-        src="src/assets/example-photo.jpeg"
-        alt="gambar properti pilihan"
-        titlesChoosen="Riverside Residence"
-        locationChoosen="Tangerang, Alam Sutera, Banten"
-        descChoosen="Hunian nyaman dan aman, bebas banjir, strategis, harga all in. Riverside Residence dengan 2 lantai, 2-3 kamar tidur serta dilengkapi dengan 1-2 kamar mandi."
-        priceChoosen="Rp365.000.000"
-      />
-      <CardChoosen
-        src="src/assets/example-photo.jpeg"
-        alt="gambar properti pilihan"
-        titlesChoosen="Riverside Residence"
-        locationChoosen="Tangerang, Alam Sutera, Banten"
-        descChoosen="Hunian nyaman dan aman, bebas banjir, strategis, harga all in. Riverside Residence dengan 2 lantai, 2-3 kamar tidur serta dilengkapi dengan 1-2 kamar mandi."
-        priceChoosen="Rp365.000.000"
-      />
-      <CardChoosen
-        src="src/assets/example-photo.jpeg"
-        alt="gambar properti pilihan"
-        titlesChoosen="Riverside Residence"
-        locationChoosen="Tangerang, Alam Sutera, Banten"
-        descChoosen="Hunian nyaman dan aman, bebas banjir, strategis, harga all in. Riverside Residence dengan 2 lantai, 2-3 kamar tidur serta dilengkapi dengan 1-2 kamar mandi."
-        priceChoosen="Rp365.000.000"
-      />
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          {properties.map((item, index) => (
+            <CardChoosen
+              key={index}
+              src={`https://skkm.online/storage/${item.image}`}
+              titlesChoosen={item.name}
+              locationChoosen={item.address}
+              descChoosen={item.description}
+              priceChoosen={formatCurrency(item.price)}
+            />
+          ))}
+        </>
+      )}
+
       <Footer />
     </>
   );

@@ -3,7 +3,8 @@ import { FaLocationDot } from "react-icons/fa6";
 import Button from "./button";
 
 export default function CardHome(props) {
-  const { src, titles, location, unitWide, bedroom, price, alt } = props;
+  const { src, titles, location, landArea, buildingArea, bedroom, price, alt } =
+    props;
   return (
     <div className="bg-white  w-max rounded-xl shadow-xl">
       <img src={src} alt={alt} className=" w-96 rounded-t-xl" />
@@ -14,8 +15,12 @@ export default function CardHome(props) {
           <p className=" font-bold">{location}</p>
         </div>
         <div className="flex items-center gap-3">
-          <p>Luas Unit</p>
-          <p className=" font-bold">{unitWide}</p>
+          <p>Luas Bangunan</p>
+          <p className=" font-bold">{buildingArea}</p>
+        </div>
+        <div className="flex items-center gap-3">
+          <p>Luas Tanah</p>
+          <p className=" font-bold">{landArea}</p>
         </div>
         <div className="flex items-center gap-3">
           <p>Kamar Tidur</p>
