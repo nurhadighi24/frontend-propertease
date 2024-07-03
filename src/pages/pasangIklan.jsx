@@ -71,7 +71,16 @@ export default function PasangIklan() {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm({ resolver: zodResolver(schema) });
+  } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      propertyBathroom: 0,
+      propertyBedroom: 0,
+      propertyBuildingArea: 0,
+      propertyLandArea: 0,
+      propertyGarage: 0,
+    },
+  });
 
   const handleLatLngChange = (newLat, newLng) => {
     setLat(newLat);
