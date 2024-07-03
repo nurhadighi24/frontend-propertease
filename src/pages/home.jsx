@@ -175,7 +175,7 @@ function Home() {
             {article.map((item, index) => (
               <SwiperSlide key={index}>
                 <CardHomeArticle
-                  src={item.image}
+                  src={`https://skkm.online/storage/${item.image}`}
                   titlesArticle={item.title}
                   descArticle={item.description}
                   alt="Article Image"
