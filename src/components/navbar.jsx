@@ -13,8 +13,10 @@ export default function Navbar(props) {
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
+    window.location.reload();
     navigate("/");
   };
+
   return (
     <nav className=" bg-blue-primary flex justify-between items-center p-5 rounded-2xl m-5 ">
       <Link className="text-white font-bold text-3xl" to="/">
