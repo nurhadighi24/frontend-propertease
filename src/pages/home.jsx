@@ -15,8 +15,6 @@ import { useEffect, useState } from "react";
 import { getArticle } from "@/utils/apis/artikel/artikel";
 import { Loading } from "@/components/loading";
 import { getProperties } from "@/utils/apis/property/properties";
-import { useToken } from "@/utils/context/tokenContext";
-import { setAxiosConfig } from "@/utils/axiosWithConfig";
 import formatCurrency from "@/utils/currencyIdr";
 import slugify from "slugify";
 
@@ -24,7 +22,6 @@ function Home() {
   const [article, setArticle] = useState([]);
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { tokenLocal } = useToken();
   const navigate = useNavigate();
 
   function generateSlug(name) {
@@ -41,7 +38,6 @@ function Home() {
 
   async function fetchData() {
     try {
-      setAxiosConfig(tokenLocal, "https://skkm.online");
       const resultProperties = await getProperties();
       const resultArticle = await getArticle();
       setProperties(resultProperties.data);
@@ -77,7 +73,7 @@ function Home() {
               to="/properti-disewakan"
               className="text-black bg-white px-6 py-2 rounded-xl"
             >
-              Disewakan
+              Disewa
             </Link>
           </div>
           <div className="flex justify-center pb-5">

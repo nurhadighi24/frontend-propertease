@@ -13,7 +13,7 @@ import { Loading } from "@/components/loading";
 export default function DetailProperty() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { tokenLocal } = useToken();
+
   const { id, slug } = useParams();
 
   useEffect(() => {
@@ -22,7 +22,6 @@ export default function DetailProperty() {
 
   async function fetchData() {
     try {
-      setAxiosConfig(tokenLocal, "https://skkm.online");
       const result = await getDetailProperties(id, slug);
       setProperties(result.data);
       setLoading(false);
