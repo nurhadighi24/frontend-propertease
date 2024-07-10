@@ -136,6 +136,7 @@ function Home() {
                     onClick={() =>
                       toDetailProperties(item.id, generateSlug(item.name))
                     }
+                    alt={item.name}
                   ></CardHome>
                 </SwiperSlide>
               ))}
