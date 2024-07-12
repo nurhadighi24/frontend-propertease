@@ -18,11 +18,32 @@ import { getProperties } from "@/utils/apis/property/properties";
 import formatCurrency from "@/utils/currencyIdr";
 import slugify from "slugify";
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { simulateKpr } from "@/utils/apis/KPR/simulateKRP";
+
+const schema = z.object({
+  propertyPrice: z.string().min(1, { message: "Harga properti harus diisi" }),
+  downPayment: z.string().min(1, { message: "Uang muka harus diisi" }),
+  interestRate: z.string().min(1, { message: "Suka bunga harus diisi" }),
+  timePeriod: z.string().min(1, { message: "Jangka Waktu harus diisi" }),
+});
+
 function Home() {
   const [article, setArticle] = useState([]);
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [simulatedKpr, setSimulatedKpr] = useState("");
   const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
 
   function generateSlug(name) {
     return slugify(name, { lower: true });
@@ -35,6 +56,21 @@ function Home() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  async function onSubmit(data) {
+    try {
+      const newSimulate = {
+        harga_properti: data.propertyPrice,
+        uang_muka: data.downPayment,
+        suku_bunga: data.interestRate,
+        jangka_waktu: data.timePeriod,
+      };
+      const result = await simulateKpr(newSimulate);
+      setSimulatedKpr(result.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async function fetchData() {
     try {
@@ -144,9 +180,60 @@ function Home() {
           </>
         )}
       </div>
-      <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <p className="text-xl mx-5 my-5">Simulasi KPR</p>
-      </div>
+        <div className=" w-1/2 m-5">
+          <Input
+            className="my-5"
+            placeholder="Harga Properti"
+            type="text"
+            name="propertyPrice"
+            register={register}
+            error={errors.propertyPrice?.message}
+          />
+          <Input
+            className="my-5"
+            placeholder="Uang Muka"
+            type="text"
+            name="downPayment"
+            register={register}
+            error={errors.downPayment?.message}
+          />
+          <Input
+            className="my-5"
+            placeholder="Suku Bunga (%)"
+            type="text"
+            name="interestRate"
+            register={register}
+            error={errors.interestRate?.message}
+          />
+          <Input
+            className="my-5"
+            placeholder="Jangka Waktu (Tahun)"
+            type="text"
+            name="timePeriod"
+            register={register}
+            error={errors.timePeriod?.message}
+          />
+        </div>
+
+        <Button
+          label="SIMULASIKAN"
+          className="text-white bg-blue-secondary w-80 m-5 py-2 text-center rounded-lg"
+        />
+
+        {simulatedKpr && (
+          <div className=" w-fit m-5 bg-slate-600 rounded p-5 text-white">
+            <p className="text-xl mb-3">Hasil Simulasi KPR</p>
+            <p className="mb-3">
+              Angsuran Bulanan: {simulatedKpr.angsuran_bulanan}
+            </p>
+            <p className="mb-3">
+              Jumlah Pinjaman: {simulatedKpr.jumlah_pinjaman}
+            </p>
+          </div>
+        )}
+      </form>
       <p className="text-2xl my-5 mx-5">Kenapa PropertEase?</p>
       <div className="grid grid-cols-4">
         <CardHomeWhy
