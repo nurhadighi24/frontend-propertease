@@ -1,10 +1,45 @@
 import CardChoosen from "@/components/cardChoosen";
 import Footer from "@/components/footer";
+import { Loading } from "@/components/loading";
 import Navbar from "@/components/navbar";
 import { Input } from "@/components/ui/input";
-import React from "react";
+import { getProperties } from "@/utils/apis/property/properties";
+import formatCurrency from "@/utils/currencyIdr";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import slugify from "slugify";
 
 export default function SaleProperty() {
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  function generateSlug(name) {
+    return slugify(name, { lower: true });
+  }
+
+  const toDetailProperties = (propertiesId, slug) => {
+    navigate(`/detail-properti/${propertiesId}/${slug}`);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function fetchData() {
+    try {
+      const result = await getProperties();
+      const filteredProperties = result.data.filter(
+        (property) => property.offer_type === "jual"
+      );
+      setProperties(filteredProperties);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  }
+
   return (
     <>
       <Navbar />
@@ -35,30 +70,26 @@ export default function SaleProperty() {
           <p className="font-bold text-7xl">PROPERTI DIJUAL</p>
         </div>
       </div>
-      <CardChoosen
-        src="src/assets/example-photo.jpeg"
-        alt="gambar properti pilihan"
-        titlesChoosen="Riverside Residence"
-        locationChoosen="Tangerang, Alam Sutera, Banten"
-        descChoosen="Hunian nyaman dan aman, bebas banjir, strategis, harga all in. Riverside Residence dengan 2 lantai, 2-3 kamar tidur serta dilengkapi dengan 1-2 kamar mandi."
-        priceChoosen="Rp365.000.000"
-      />
-      <CardChoosen
-        src="src/assets/example-photo.jpeg"
-        alt="gambar properti pilihan"
-        titlesChoosen="Riverside Residence"
-        locationChoosen="Tangerang, Alam Sutera, Banten"
-        descChoosen="Hunian nyaman dan aman, bebas banjir, strategis, harga all in. Riverside Residence dengan 2 lantai, 2-3 kamar tidur serta dilengkapi dengan 1-2 kamar mandi."
-        priceChoosen="Rp365.000.000"
-      />
-      <CardChoosen
-        src="src/assets/example-photo.jpeg"
-        alt="gambar properti pilihan"
-        titlesChoosen="Riverside Residence"
-        locationChoosen="Tangerang, Alam Sutera, Banten"
-        descChoosen="Hunian nyaman dan aman, bebas banjir, strategis, harga all in. Riverside Residence dengan 2 lantai, 2-3 kamar tidur serta dilengkapi dengan 1-2 kamar mandi."
-        priceChoosen="Rp365.000.000"
-      />
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          {properties.map((property) => (
+            <CardChoosen
+              key={property.id}
+              src={`https://skkm.online/storage/${property.image}`}
+              alt="gambar properti pilihan"
+              titlesChoosen={property.name}
+              locationChoosen={`${property.city}, ${property.district}, ${property.province}`}
+              descChoosen={property.description}
+              priceChoosen={formatCurrency(property.price)}
+              onClick={() =>
+                toDetailProperties(property.id, generateSlug(property.name))
+              }
+            />
+          ))}
+        </>
+      )}
       <Footer />
     </>
   );
