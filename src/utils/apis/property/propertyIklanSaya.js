@@ -9,6 +9,6 @@ export const getPropertyIklanSaya = async () => {
     return response.data;
   } catch (error) {
     console.log(error);
-    throw Error("Failed to get Property Iklan Saya");
+    throw Error(error.response.data.message);
   }
 };

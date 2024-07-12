@@ -20,6 +20,7 @@ import { CrossCircledIcon } from "@radix-ui/react-icons";
 import { useToken } from "@/utils/context/tokenContext";
 import { setAxiosConfig } from "@/utils/axiosWithConfig";
 import CustomRadioGroup from "@/components/radioButton";
+import { isAfter, parseISO } from "date-fns";
 
 const schema = z.object({
   propertyName: z.string().min(1, { message: "Nama Properti harus diisi" }),
@@ -43,7 +44,8 @@ const schema = z.object({
   propertyOfferType: z.enum(["jual", "sewa"]),
   propertyType: z.enum(["rumah", "apartement", "tanah"]),
   propertyFurnished: z.enum(["ya", "tidak", "semi"]),
-  rentalPeriod: z.string().optional(),
+  rentalPeriodStart: z.string().date(),
+  rentalPeriodEnd: z.string().date(),
 });
 
 export default function PasangIklan() {
@@ -87,14 +89,6 @@ export default function PasangIklan() {
     setLng(newLng);
   };
 
-  const rentalSchema = schema.refine(
-    (data) => data.propertyOfferType === "jual" || data.rentalPeriod,
-    {
-      message: "Masa Sewa harus diisi jika memilih opsi sewa",
-      path: ["rentalPeriod"],
-    }
-  );
-
   useEffect(() => {
     setSelectedOfferType(watch("propertyOfferType"));
   }, [watch("propertyOfferType")]);
@@ -118,6 +112,8 @@ export default function PasangIklan() {
         offer_type: data.propertyOfferType,
         property_type: data.propertyType,
         furnished: data.propertyFurnished,
+        rental_start_date: data.rentalPeriodStart,
+        rental_end_date: data.rentalPeriodEnd,
       };
       setAxiosConfig(tokenLocal, "https://skkm.online");
       await createProperty(newProperty, selectedImage);
@@ -182,11 +178,24 @@ export default function PasangIklan() {
               <p className="font-bold">Masa Sewa </p>
               <p>(jika memilih opsi sewa)</p>
             </div>
-
+            <label htmlFor="">Tanggal mulai sewa</label>
             <Input
-              type="text"
+              type="date"
               placeholder="Tahunan / Bulanan"
               className="w-max mb-3"
+              name="rentalPeriodStart"
+              register={register}
+              error={errors.rentalPeriodStart?.message}
+            />
+
+            <label htmlFor="">Tanggal selesai sewa</label>
+            <Input
+              type="date"
+              placeholder="Tahunan / Bulanan"
+              className="w-max mb-3"
+              name="rentalPeriodEnd"
+              register={register}
+              error={errors.rentalPeriodEnd?.message}
             />
           </>
         )}

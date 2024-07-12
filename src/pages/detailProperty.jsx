@@ -4,9 +4,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { Link, useParams } from "react-router-dom";
 import { IoLogoWhatsapp } from "react-icons/io";
 import Footer from "@/components/footer";
-import { useToken } from "@/utils/context/tokenContext";
 import { getDetailProperties } from "@/utils/apis/property/properties";
-import { setAxiosConfig } from "@/utils/axiosWithConfig";
 import formatCurrency from "@/utils/currencyIdr";
 import { Loading } from "@/components/loading";
 

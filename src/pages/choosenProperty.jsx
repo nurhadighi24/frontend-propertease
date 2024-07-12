@@ -4,8 +4,6 @@ import { Loading } from "@/components/loading";
 import Navbar from "@/components/navbar";
 import { Input } from "@/components/ui/input";
 import { getProperties } from "@/utils/apis/property/properties";
-import { setAxiosConfig } from "@/utils/axiosWithConfig";
-import { useToken } from "@/utils/context/tokenContext";
 import formatCurrency from "@/utils/currencyIdr";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +12,6 @@ import slugify from "slugify";
 export default function ChoosenProperty() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { tokenLocal } = useToken();
   const navigate = useNavigate();
 
   function generateSlug(name) {
@@ -31,7 +28,6 @@ export default function ChoosenProperty() {
 
   async function fetchData() {
     try {
-      setAxiosConfig(tokenLocal, "https://skkm.online");
       const resultProperties = await getProperties();
       setProperties(resultProperties.data);
       setLoading(false);
