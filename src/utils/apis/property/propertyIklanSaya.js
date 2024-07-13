@@ -12,3 +12,15 @@ export const getPropertyIklanSaya = async () => {
     throw Error(error.response.data.message);
   }
 };
+
+export const deleteProperty = async (id) => {
+  try {
+    const response = await axiosWithConfig.delete(
+      `https://skkm.online/api/properties/${id}`
+    );
+
+    return response.data;
+  } catch (error) {
+    throw Error(error.response.data.message);
+  }
+};
