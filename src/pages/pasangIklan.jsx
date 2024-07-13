@@ -22,6 +22,8 @@ import { setAxiosConfig } from "@/utils/axiosWithConfig";
 import CustomRadioGroup from "@/components/radioButton";
 import { isAfter, parseISO } from "date-fns";
 import { getDetailProperties } from "@/utils/apis/property/properties";
+import { updateProperty } from "@/utils/apis/property/propertyIklanSaya";
+import { Loading } from "@/components/loading";
 
 const schema = z.object({
   propertyName: z.string().min(1, { message: "Nama Properti harus diisi" }),
@@ -53,7 +55,7 @@ export default function PasangIklan() {
   const { id } = useParams();
   const [selectedId, setSelectedId] = useState(0);
   const [property, setProperty] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -108,7 +110,6 @@ export default function PasangIklan() {
     try {
       setAxiosConfig(tokenLocal, "https://skkm.online");
       const result = await getDetailProperties(id);
-      console.log(result.data);
       setProperty(result.data);
       if (result.data) {
         setSelectedId(result.data.id);
@@ -133,6 +134,7 @@ export default function PasangIklan() {
 
         setPreviewUrl(`https://skkm.online/storage/${result.data.image}`);
       }
+      setLoading(false);
     } catch (error) {
       console.log(error);
       toast({
@@ -205,12 +207,69 @@ export default function PasangIklan() {
     }
   }
 
+  async function onSubmitEdit(data) {
+    try {
+      const editProperty = {
+        id: selectedId,
+        name: data.propertyName,
+        description: data.propertyDescription,
+        price: parseInt(data.propertyPrice),
+        bedrooms: parseInt(data.propertyBedroom),
+        bathrooms: parseInt(data.propertyBathroom),
+        building_area: parseInt(data.propertyBuildingArea),
+        land_area: parseInt(data.propertyLandArea),
+        garage: parseInt(data.propertyGarage),
+        province: data.propertyProvince,
+        city: data.propertyCity,
+        district: data.propertyDistrict,
+        address: data.propertyAddress,
+        offer_type: data.propertyOfferType,
+        property_type: data.propertyType,
+        furnished: data.propertyFurnished,
+        rental_start_date: data.rentalPeriodStart,
+        rental_end_date: data.rentalPeriodEnd,
+      };
+      setAxiosConfig(tokenLocal, "https://skkm.online");
+      await updateProperty(editProperty, selectedImage);
+      setLoading(false);
+      navigate("/");
+      toast({
+        title: (
+          <div className="flex items-center gap-3">
+            <FaRegCheckCircle className="text-[#05E500] text-3xl" />
+            <span className=" text-base font-semibold">
+              Berhasil Mengubah Properti!
+            </span>
+          </div>
+        ),
+        description:
+          "Data Produk berhasil diperbarui, nih. Silahkan nikmati fitur lainnya!!",
+      });
+      setSelectedId(0);
+      reset();
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: (
+          <div className="flex items-center">
+            <CrossCircledIcon />
+            <span className="ml-2">Gagal Mengubah Property!</span>
+          </div>
+        ),
+        description:
+          "Oh, noo! Sepertinya ada kesalahan saat proses penyimpanan perubahan data, nih. Periksa koneksi mu dan coba lagi, yuk!!",
+      });
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <>
       <Navbar />
       <form
         className="m-20"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(selectedId === 0 ? onSubmit : onSubmitEdit)}
         encType="multipart/form-data"
       >
         <p className=" text-5xl font-bold">
@@ -513,11 +572,15 @@ export default function PasangIklan() {
           >
             Batalkan
           </Link>
-          <Button
-            type="submit"
-            label={loading ? "Memuat..." : "Publikasi Properti"}
-            className="text-white bg-blue-secondary rounded-xl px-20 py-1 hover:shadow-2xl text-xl hover:scale-125 transition"
-          />
+          {loading ? (
+            <Loading />
+          ) : (
+            <Button
+              type="submit"
+              label={selectedId === 0 ? "Tambah Produk " : "Simpan Perubahan"}
+              className="text-white bg-blue-secondary rounded-xl px-20 py-1 hover:shadow-2xl text-xl hover:scale-125 transition"
+            />
+          )}
         </div>
       </form>
       <Footer />

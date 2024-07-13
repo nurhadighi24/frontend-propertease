@@ -40,7 +40,6 @@ export default function IklanSaya() {
     try {
       setAxiosConfig(tokenLocal, "https://skkm.online");
       const result = await getPropertyIklanSaya();
-      console.log(result.data);
       setProperties(result.data);
       setLoading(false);
     } catch (error) {
