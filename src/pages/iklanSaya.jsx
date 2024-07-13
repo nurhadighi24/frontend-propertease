@@ -20,9 +20,16 @@ import { Loading } from "@/components/loading";
 import Delete from "@/components/delete";
 import { useToast } from "@/components/ui/use-toast";
 import { CrossCircledIcon } from "@radix-ui/react-icons";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function IklanSaya() {
   const [properties, setProperties] = useState([]);
+  const [selectedOfferType, setSelectedOfferType] = useState("");
   const [loading, setLoading] = useState(true);
   const { tokenLocal } = useToken();
   const { toast } = useToast();
@@ -86,14 +93,56 @@ export default function IklanSaya() {
     }
   }
 
+  // Extract unique offer types from properties
+  const offerTypes = [
+    ...new Set(properties.map((property) => property.offer_type)),
+  ];
+
+  // Filter properties based on selected offer type
+  const filteredProperties = selectedOfferType
+    ? properties.filter((property) => property.offer_type === selectedOfferType)
+    : properties;
+
   return (
     <>
       <Navbar />
+      <div className="flex justify-end m-5">
+        {" "}
+        {/* Flex container to align dropdown to the end */}
+        <DropdownMenu>
+          <DropdownMenuTrigger className="flex justify-between items-center rounded-md bg-white py-3 px-3 border border-blue-primary gap-20">
+            {selectedOfferType || "Pilih Tipe Penawaran"}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="10"
+              height="5"
+              viewBox="0 0 10 5"
+              fill="none"
+            >
+              <path d="M5 4L0.669872 0.25L9.33013 0.25L5 4Z" fill="#28303F" />
+            </svg>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onClick={() => setSelectedOfferType("")}>
+              Semua Tipe Penawaran
+            </DropdownMenuItem>
+            {offerTypes.map((type, index) => (
+              <DropdownMenuItem
+                className="cursor-pointer"
+                key={index}
+                onClick={() => setSelectedOfferType(type)}
+              >
+                {type}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       {loading ? (
         <Loading />
       ) : (
         <>
-          {properties.map((property) => (
+          {filteredProperties.map((property) => (
             <CardIklanSaya
               key={property.id}
               src={`https://skkm.online/storage/${property.image}`}
