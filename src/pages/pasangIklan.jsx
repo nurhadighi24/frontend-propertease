@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
 
 import { IoCloudUpload } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -21,6 +21,7 @@ import { useToken } from "@/utils/context/tokenContext";
 import { setAxiosConfig } from "@/utils/axiosWithConfig";
 import CustomRadioGroup from "@/components/radioButton";
 import { isAfter, parseISO } from "date-fns";
+import { getDetailProperties } from "@/utils/apis/property/properties";
 
 const schema = z.object({
   propertyName: z.string().min(1, { message: "Nama Properti harus diisi" }),
@@ -49,6 +50,9 @@ const schema = z.object({
 });
 
 export default function PasangIklan() {
+  const { id } = useParams();
+  const [selectedId, setSelectedId] = useState(0);
+  const [property, setProperty] = useState([]);
   const [loading, setLoading] = useState(false);
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
@@ -71,6 +75,7 @@ export default function PasangIklan() {
     reset,
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
     watch,
   } = useForm({
@@ -92,6 +97,59 @@ export default function PasangIklan() {
   useEffect(() => {
     setSelectedOfferType(watch("propertyOfferType"));
   }, [watch("propertyOfferType")]);
+
+  useEffect(() => {
+    if (id !== undefined) {
+      fetchDataDetail();
+    }
+  }, []);
+
+  async function fetchDataDetail() {
+    try {
+      setAxiosConfig(tokenLocal, "https://skkm.online");
+      const result = await getDetailProperties(id);
+      console.log(result.data);
+      setProperty(result.data);
+      if (result.data) {
+        setSelectedId(result.data.id);
+        setValue("propertyName", result.data.name);
+        setValue("propertyOfferType", result.data.offer_type);
+        setValue("propertyType", result.data.property_type);
+        setValue("propertyDescription", result.data.description);
+        setValue("propertyPrice", result.data.price);
+        setValue("propertyFurnished", result.data.furnished);
+        setValue("propertyBedroom", result.data.bedrooms);
+        setValue("propertyBathroom", result.data.bathrooms);
+        setValue("propertyBuildingArea", result.data.building_area);
+        setValue("propertyLandArea", result.data.land_area);
+        setValue("propertyGarage", result.data.garage);
+        setValue("propertyProvince", result.data.province);
+        setValue("propertyCity", result.data.city);
+        setValue("propertyDistrict", result.data.district);
+        setValue("propertyAddress", result.data.address);
+        setValue("propertyImage", result.data.image);
+        setValue("rentalPeriodStart", result.data.rental_start_date);
+        setValue("rentalPeriodEnd", result.data.rental_end_date);
+
+        setPreviewUrl(`https://skkm.online/storage/${result.data.image}`);
+      }
+    } catch (error) {
+      console.log(error);
+      toast({
+        variant: "destructive",
+        title: (
+          <div className="flex items-center">
+            <CrossCircledIcon />
+            <span className="ml-2">Gagal Mendapatkan Produk!</span>
+          </div>
+        ),
+        description:
+          "Oh, noo! Sepertinya ada kesalahan saat proses penyimpanan perubahan data, nih. Periksa koneksi mu dan coba lagi, yuk!!",
+      });
+    } finally {
+      setLoading(false);
+    }
+  }
 
   async function onSubmit(data) {
     try {

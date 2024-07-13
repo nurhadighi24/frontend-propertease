@@ -24,3 +24,21 @@ export const deleteProperty = async (id) => {
     throw Error(error.response.data.message);
   }
 };
+
+export const updateProperty = async (data) => {
+  const { id } = data;
+  try {
+    const newData = {
+      ...data,
+    };
+
+    const response = await axiosWithConfig.post(
+      `https://skkm.online/api/properties/update/${id}`,
+      newData
+    );
+
+    return response.data;
+  } catch (error) {
+    throw Error(error.response.data.message);
+  }
+};

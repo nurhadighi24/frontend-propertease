@@ -53,7 +53,10 @@ export default function Router() {
       path: "/update-profile",
       element: <UpdateProfile />,
     },
-
+    {
+      path: "/pasang-iklan/:id/edit-property",
+      element: <PasangIklan />,
+    },
     {
       path: "/pasang-iklan",
       element: tokenLocal ? <PasangIklan /> : <Navigate to="/login" />,

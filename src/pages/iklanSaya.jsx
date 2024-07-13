@@ -4,7 +4,7 @@ import { FaLocationDot } from "react-icons/fa6";
 
 import { BsFillPencilFill } from "react-icons/bs";
 import { FaRegCheckCircle, FaTrashAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "@/components/button";
 import Footer from "@/components/footer";
 import { useEffect, useState } from "react";
@@ -26,6 +26,11 @@ export default function IklanSaya() {
   const [loading, setLoading] = useState(true);
   const { tokenLocal } = useToken();
   const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const toEditProperty = (id) => {
+    navigate(`/pasang-iklan/${id}/edit-property`);
+  };
 
   useEffect(() => {
     fetchData();
@@ -99,6 +104,7 @@ export default function IklanSaya() {
               description={property.description}
               price={formatCurrency(property.price)}
               onClickDelete={() => handleDeleteClick(property.id)}
+              onClickEdit={() => toEditProperty(property.id)}
             />
           ))}
         </>
