@@ -47,15 +47,15 @@ const schema = z.object({
   propertyOfferType: z.enum(["jual", "sewa"]),
   propertyType: z.enum(["rumah", "apartement", "tanah"]),
   propertyFurnished: z.enum(["ya", "tidak", "semi"]),
-  rentalPeriodStart: z.string().date(),
-  rentalPeriodEnd: z.string().date(),
+  rentalPeriodStart: z.string().date().optional().or(z.literal("")),
+  rentalPeriodEnd: z.string().date().optional().or(z.literal("")),
 });
 
 export default function PasangIklan() {
   const { id } = useParams();
   const [selectedId, setSelectedId] = useState(0);
   const [property, setProperty] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -108,6 +108,7 @@ export default function PasangIklan() {
 
   async function fetchDataDetail() {
     try {
+      setLoading(true);
       setAxiosConfig(tokenLocal, "https://skkm.online");
       const result = await getDetailProperties(id);
       setProperty(result.data);
@@ -129,8 +130,8 @@ export default function PasangIklan() {
         setValue("propertyDistrict", result.data.district);
         setValue("propertyAddress", result.data.address);
         setValue("propertyImage", result.data.image);
-        setValue("rentalPeriodStart", result.data.rental_start_date);
-        setValue("rentalPeriodEnd", result.data.rental_end_date);
+        setValue("rentalPeriodStart", result.data.rental_start_date || "");
+        setValue("rentalPeriodEnd", result.data.rental_end_date || "");
 
         setPreviewUrl(`https://skkm.online/storage/${result.data.image}`);
       }
@@ -172,13 +173,13 @@ export default function PasangIklan() {
         offer_type: data.propertyOfferType,
         property_type: data.propertyType,
         furnished: data.propertyFurnished,
-        rental_start_date: data.rentalPeriodStart,
-        rental_end_date: data.rentalPeriodEnd,
+        rental_start_date: data.rentalPeriodStart || "",
+        rental_end_date: data.rentalPeriodEnd || "",
       };
       setAxiosConfig(tokenLocal, "https://skkm.online");
       await createProperty(newProperty, selectedImage);
-      setLoading(false);
       navigate("/");
+      setLoading(false);
       toast({
         title: (
           <div className="flex items-center gap-3">
@@ -209,6 +210,7 @@ export default function PasangIklan() {
 
   async function onSubmitEdit(data) {
     try {
+      setLoading(true);
       const editProperty = {
         id: selectedId,
         name: data.propertyName,
@@ -226,8 +228,8 @@ export default function PasangIklan() {
         offer_type: data.propertyOfferType,
         property_type: data.propertyType,
         furnished: data.propertyFurnished,
-        rental_start_date: data.rentalPeriodStart,
-        rental_end_date: data.rentalPeriodEnd,
+        rental_start_date: data.rentalPeriodStart || "",
+        rental_end_date: data.rentalPeriodEnd || "",
       };
       setAxiosConfig(tokenLocal, "https://skkm.online");
       await updateProperty(editProperty, selectedImage);
