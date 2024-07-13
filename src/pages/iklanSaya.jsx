@@ -9,49 +9,54 @@ import Button from "@/components/button";
 import Footer from "@/components/footer";
 import { useEffect, useState } from "react";
 import { getPropertyIklanSaya } from "@/utils/apis/property/propertyIklanSaya";
+import { useToken } from "@/utils/context/tokenContext";
+import { setAxiosConfig } from "@/utils/axiosWithConfig";
+import CardIklanSaya from "@/components/cardIklanSaya";
+import formatCurrency from "@/utils/currencyIdr";
+import { Loading } from "@/components/loading";
 
 export default function IklanSaya() {
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { tokenLocal } = useToken();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function fetchData() {
+    try {
+      setAxiosConfig(tokenLocal, "https://skkm.online");
+      const result = await getPropertyIklanSaya();
+      console.log(result.data);
+      setProperties(result.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  }
+
   return (
     <>
       <Navbar />
-      <div className="flex justify-center items-center mx-5 gap-3 my-10 border rounded-xl shadow-2xl">
-        <div className=" w-2/6">
-          <img
-            src="src/assets/example-photo.jpeg"
-            alt="Iklan Saya gambar"
-            className=" rounded-xl"
-          />
-        </div>
-        <div>
-          <p className="text-blue-secondary font-bold text-4xl">
-            Riverside Residence
-          </p>
-          <div className="flex items-center gap-1 my-3">
-            <FaLocationDot className="text-blue-secondary" />
-            <p className=" font-bold">Tangerang, Alam Sutera, Banten</p>
-          </div>
-          <p>
-            Hunian nyaman dan aman, bebas banjir, strategis, harga all in.
-            Riverside Residence dengan 2 lantai, 2-3 kamar tidur serta
-            dilengkapi dengan 1-2 kamar mandi.
-          </p>
-          <p className="font-bold text-4xl my-3">Rp365.900.000</p>
-          <div className=" flex items-center justify-center gap-5">
-            <Link
-              to="/pasang-iklan"
-              className="border border-blue-secondary rounded-xl text-white px-5 py-2 text-xl flex items-center gap-5 bg-green-edit"
-            >
-              <BsFillPencilFill />
-              <p>Edit</p>
-            </Link>
-            <Button
-              className="flex items-center bg-red-delete px-3 py-2 rounded-xl text-xl text-white"
-              label="Hapus"
-              icon={<FaTrashAlt />}
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          {properties.map((property) => (
+            <CardIklanSaya
+              key={property.id}
+              src={`https://skkm.online/storage/${property.image}`}
+              alt={property.name}
+              titles={property.name}
+              location={property.address}
+              description={property.description}
+              price={formatCurrency(property.price)}
             />
-          </div>
-        </div>
-      </div>
+          ))}
+        </>
+      )}
       <Footer />
     </>
   );
