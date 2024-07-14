@@ -37,13 +37,11 @@ export default function CartTab() {
       <h2 className="p-5 text-white text-2xl">Pembelian</h2>
       <div>
         {carts.map((packet, key) => (
-          <>
-            <CartItem
-              key={key}
-              packetId={packet.packetId} // Pastikan menggunakan packetId
-              quantity={packet.quantity} // Pastikan menggunakan quantity
-            />
-          </>
+          <CartItem
+            key={key}
+            packetId={packet.packetId} // Pastikan menggunakan packetId
+            quantity={packet.quantity} // Pastikan menggunakan quantity
+          />
         ))}
       </div>
       <div>

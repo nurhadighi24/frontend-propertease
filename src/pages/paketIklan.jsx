@@ -37,15 +37,14 @@ export default function PaketIklan() {
         </span>
       </div>
       <div className=" grid grid-cols-2">
-        {packets.map((packet, key) => (
-          <>
-            <PacketListCart
-              id={packet.id}
-              quota={packet.quota}
-              titles={packet.name}
-              price={formatCurrency(packet.price)}
-            />
-          </>
+        {packets.map((packet) => (
+          <PacketListCart
+            key={packet.id}
+            id={packet.id}
+            quota={packet.quota}
+            titles={packet.name}
+            price={formatCurrency(packet.price)}
+          />
         ))}
       </div>
       <CartTab />
