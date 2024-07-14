@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useToast } from "@/components/ui/use-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { CrossCircledIcon } from "@radix-ui/react-icons";
 import { Loading } from "@/components/loading";
@@ -107,6 +107,12 @@ export default function UpdateProfile() {
   return (
     <>
       <Navbar />
+      <Link
+        to="/paket-iklan"
+        className=" bg-blue-primary rounded-xl text-white m-5 px-3 py-2 text-xl"
+      >
+        Beli Paket Iklan
+      </Link>
       <form className=" my-10" onSubmit={handleSubmit(onSubmitEdit)}>
         <div className="flex items-center justify-center gap-10">
           <div>
