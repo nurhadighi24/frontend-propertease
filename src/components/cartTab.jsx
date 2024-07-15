@@ -9,6 +9,7 @@ import { paymentWithMidtrans } from "@/utils/apis/paymentGateway/paymentGateway"
 import { setAxiosConfig } from "@/utils/axiosWithConfig";
 import { getProfile } from "@/utils/apis/profile/profile";
 import { useToken } from "@/utils/context/tokenContext";
+import { saveTransaction } from "@/utils/indexedDb";
 
 export default function CartTab() {
   const [token, setToken] = useState("");
@@ -71,6 +72,8 @@ export default function CartTab() {
       const result = await paymentWithMidtrans(data);
 
       setToken(result.token);
+
+      await saveTransaction(data);
     } catch (error) {
       console.error("Checkout error:", error); // Log the error
     }
@@ -134,10 +137,9 @@ export default function CartTab() {
           />
         ))}
       </div>
-      <div>
-        <p className="text-2xl text-white">
-          Total Harga: {formatCurrency(totalPrice)}
-        </p>
+      <div className="flex justify-between items-center mx-2">
+        <p className="text-2xl text-white my-3">Total Harga:</p>
+        <p className="text-2xl text-white my-3">{formatCurrency(totalPrice)}</p>
       </div>
       <div>
         <Button

@@ -60,6 +60,7 @@ export default function Login() {
       const result = await loginAcc(data.email, data.password);
       const userName = result.data.user.name;
       saveTokenAndUser(result.data.access_token, userName);
+      localStorage.setItem("userEmail", data.email);
       localStorage.setItem("accessToken", result.data.access_token);
       localStorage.setItem("user", JSON.stringify(userName));
       setIsLoading(false);

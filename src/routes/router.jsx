@@ -8,6 +8,7 @@ import PasangIklan from "@/pages/pasangIklan";
 import Register from "@/pages/register";
 import RentProperty from "@/pages/rentProperty";
 import SaleProperty from "@/pages/saleProperty";
+import TransactionHistory from "@/pages/transactionHistory";
 import UpdateProfile from "@/pages/updateProfile";
 import { useToken } from "@/utils/context/tokenContext";
 import React from "react";
@@ -49,6 +50,10 @@ export default function Router() {
     {
       path: "/paket-iklan",
       element: <PaketIklan />,
+    },
+    {
+      path: "/riwayat-transaksi",
+      element: <TransactionHistory />,
     },
     {
       path: "/iklan-saya",

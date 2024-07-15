@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { TiShoppingCart } from "react-icons/ti";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleStatusTab } from "@/utils/store/cart";
+import { Link } from "react-router-dom";
 
 export default function PaketIklan() {
   const [totalQuantity, setTotalQuantity] = useState(0);
@@ -36,6 +37,12 @@ export default function PaketIklan() {
           {totalQuantity}
         </span>
       </div>
+      <Link
+        to="/riwayat-transaksi"
+        className=" bg-slate-500 text-white px-3 py-2 rounded-lg m-5"
+      >
+        riwayat transaksi
+      </Link>
       <div className=" grid grid-cols-2">
         {packets.map((packet) => (
           <PacketListCart
