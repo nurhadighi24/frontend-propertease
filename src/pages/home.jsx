@@ -113,14 +113,14 @@ function Home() {
             </Link>
           </div>
           <div className="flex justify-center pb-5">
-            <div className=" relative w-2/6 ">
+            <div className=" relative w-full max-w-lg px-3 md:px-3 ">
               <Input
                 type="text"
                 placeholder="masukkan nama properti atau lokasi"
                 className=" py-6"
               />
               <svg
-                className="absolute right-3 top-4 text-primary-green"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2"
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
                 height="14"
@@ -235,17 +235,17 @@ function Home() {
         )}
       </form>
       <p className="text-2xl my-5 mx-5">Kenapa PropertEase?</p>
-      <div className="grid grid-cols-4">
+      <div className=" md:flex md:justify-around grid grid-cols-2 max-sm:grid-cols-1 ">
         <CardHomeWhy
           titlesLabel="Aman & Mudah"
           descLabel="Jual Properti Anda dengan aman dan mudah"
         />
         <CardHomeWhy
-          titlesLabel="Cepat & Terpercayas"
+          titlesLabel="Cepat & Terpercaya"
           descLabel="Jual Properti Anda dengan Cepat dan Terpercaya"
         />
         <CardHomeWhy
-          titlesLabel="Kulitas Mitra Terbaik"
+          titlesLabel="Kualitas Mitra Terbaik"
           descLabel="Kualitas Mitra yang Baik"
         />
         <CardHomeWhy
