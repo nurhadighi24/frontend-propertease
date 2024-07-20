@@ -49,6 +49,8 @@ const schema = z.object({
   propertyFurnished: z.enum(["ya", "tidak", "semi"]),
   rentalPeriodStart: z.string().date().optional().or(z.literal("")),
   rentalPeriodEnd: z.string().date().optional().or(z.literal("")),
+  latitudeProperty: z.string().min(1, { message: "Latitude harus diisi" }),
+  longitudeProperty: z.string().min(1, { message: "Longitude harus diisi" }),
 });
 
 export default function PasangIklan() {
@@ -132,7 +134,10 @@ export default function PasangIklan() {
         setValue("propertyImage", result.data.image);
         setValue("rentalPeriodStart", result.data.rental_start_date || "");
         setValue("rentalPeriodEnd", result.data.rental_end_date || "");
-
+        setValue("latitudeProperty", String(result.data.latitude));
+        setValue("longitudeProperty", String(result.data.longitude));
+        setLat(result.data.latitude);
+        setLng(result.data.longitude);
         setPreviewUrl(`https://skkm.online/storage/${result.data.image}`);
       }
       setLoading(false);
@@ -175,6 +180,8 @@ export default function PasangIklan() {
         furnished: data.propertyFurnished,
         rental_start_date: data.rentalPeriodStart || "",
         rental_end_date: data.rentalPeriodEnd || "",
+        latitude: lat,
+        longitude: lng,
       };
       setAxiosConfig(tokenLocal, "https://skkm.online");
       await createProperty(newProperty, selectedImage);
@@ -230,6 +237,8 @@ export default function PasangIklan() {
         furnished: data.propertyFurnished,
         rental_start_date: data.rentalPeriodStart || "",
         rental_end_date: data.rentalPeriodEnd || "",
+        latitude: String(lat),
+        longitude: String(lng),
       };
       setAxiosConfig(tokenLocal, "https://skkm.online");
       await updateProperty(editProperty, selectedImage);
@@ -509,14 +518,22 @@ export default function PasangIklan() {
         </div>
         <div className="flex items-center w-max gap-5">
           <Input
+            type="text"
             placeholder="Latitude"
-            value={lat || ""}
+            value={String(lat)}
             onChange={(e) => setLat(e.target.value)}
+            register={register}
+            name="latitudeProperty"
+            error={errors.latitudeProperty?.message}
           />
           <Input
+            type="text"
             placeholder="Longitude"
-            value={lng || ""}
+            value={String(lng)}
             onChange={(e) => setLng(e.target.value)}
+            register={register}
+            name="longitudeProperty"
+            error={errors.longitudeProperty?.message}
           />
         </div>
         <div className="my-5">

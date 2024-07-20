@@ -9,6 +9,8 @@ import formatCurrency from "@/utils/currencyIdr";
 import { Loading } from "@/components/loading";
 import { useToken } from "@/utils/context/tokenContext";
 import { setAxiosConfig } from "@/utils/axiosWithConfig";
+import MapInput from "@/components/map/mapInput";
+import MapDetail from "@/components/map/mapDetail";
 
 export default function DetailProperty() {
   const [properties, setProperties] = useState([]);
@@ -23,8 +25,10 @@ export default function DetailProperty() {
 
   async function fetchData() {
     try {
+      setAxiosConfig(tokenLocal, "https://skkm.online");
       const result = await getDetailProperties(id, slug);
       setProperties(result.data);
+      console.log(result.data);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -82,6 +86,14 @@ export default function DetailProperty() {
                 <p>Garasi</p>
                 <p className="font-bold">{properties.garage}</p>
               </div>
+              {properties.latitude !== null &&
+                properties.longitude !== null && (
+                  <MapDetail
+                    lat={properties.latitude}
+                    lng={properties.longitude}
+                    mapCenter={[properties.latitude, properties.longitude]}
+                  />
+                )}
               <div className="border rounded-lg bg-gray-primary p-3">
                 <p className="font-bold">DESKRIPSI SELENGKAPNYA</p>
                 <p>{properties.description}</p>
