@@ -3,6 +3,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 import { IoLogoWhatsapp } from "react-icons/io";
+import ReactWhatsapp from "react-whatsapp";
 
 export default function CardChoosen(props) {
   const {
@@ -13,7 +14,11 @@ export default function CardChoosen(props) {
     descChoosen,
     priceChoosen,
     onClick,
+    phone,
+    name,
   } = props;
+
+  const phoneWithCountryCode = `+62${phone}`;
 
   return (
     <div className="flex justify-center items-center mx-5 gap-3 my-10 border rounded-xl shadow-2xl">
@@ -37,10 +42,16 @@ export default function CardChoosen(props) {
           >
             Selengkapnya
           </Link>
-          <Link className="flex items-center bg-green-primary px-3 py-2 rounded-xl text-xl">
-            <IoLogoWhatsapp className="text-white" />
-            <p className="text-white">Whatsapp</p>
-          </Link>
+
+          <ReactWhatsapp
+            number={phoneWithCountryCode}
+            message={`Halo, ${name} saya tertarik dengan properti ${titlesChoosen}`}
+          >
+            <div className="flex items-center bg-green-primary px-3 py-2 rounded-xl text-xl">
+              <IoLogoWhatsapp className="text-white" />
+              <p className="text-white">Whatsapp</p>
+            </div>
+          </ReactWhatsapp>
         </div>
       </div>
     </div>

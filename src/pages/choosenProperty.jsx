@@ -3,7 +3,10 @@ import Footer from "@/components/footer";
 import { Loading } from "@/components/loading";
 import Navbar from "@/components/navbar";
 import { Input } from "@/components/ui/input";
-import { getProperties } from "@/utils/apis/property/properties";
+import {
+  getProperties,
+  getPropertyShowUser,
+} from "@/utils/apis/property/properties";
 import formatCurrency from "@/utils/currencyIdr";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -28,14 +31,16 @@ export default function ChoosenProperty() {
 
   async function fetchData() {
     try {
-      const resultProperties = await getProperties();
+      const resultProperties = await getPropertyShowUser();
       setProperties(resultProperties.data);
+      console.log(resultProperties.data);
       setLoading(false);
     } catch (error) {
       console.log(error);
       setLoading(false);
     }
   }
+
   return (
     <>
       <Navbar />
@@ -78,6 +83,8 @@ export default function ChoosenProperty() {
               onClick={() =>
                 toDetailProperties(item.id, generateSlug(item.name))
               }
+              phone={item.user.phone}
+              name={item.user.name}
             />
           ))}
         </>

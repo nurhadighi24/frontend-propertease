@@ -22,3 +22,15 @@ export const getDetailProperties = async (id) => {
     throw Error(error.response.data.message);
   }
 };
+
+export const getPropertyShowUser = async () => {
+  try {
+    const response = await axiosWithConfig.get(
+      `https://skkm.online/api/property-show-user`
+    );
+
+    return response.data;
+  } catch (error) {
+    throw Error(error.response.data.message);
+  }
+};

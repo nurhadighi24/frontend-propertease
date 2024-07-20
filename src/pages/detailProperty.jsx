@@ -7,10 +7,13 @@ import Footer from "@/components/footer";
 import { getDetailProperties } from "@/utils/apis/property/properties";
 import formatCurrency from "@/utils/currencyIdr";
 import { Loading } from "@/components/loading";
+import { useToken } from "@/utils/context/tokenContext";
+import { setAxiosConfig } from "@/utils/axiosWithConfig";
 
 export default function DetailProperty() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { tokenLocal } = useToken();
 
   const { id, slug } = useParams();
 
