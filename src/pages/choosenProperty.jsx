@@ -33,7 +33,6 @@ export default function ChoosenProperty() {
     try {
       const resultProperties = await getPropertyShowUser();
       setProperties(resultProperties.data);
-      console.log(resultProperties.data);
       setLoading(false);
     } catch (error) {
       console.log(error);

@@ -11,6 +11,7 @@ import { useToken } from "@/utils/context/tokenContext";
 import { setAxiosConfig } from "@/utils/axiosWithConfig";
 import MapInput from "@/components/map/mapInput";
 import MapDetail from "@/components/map/mapDetail";
+import ReactWhatsapp from "react-whatsapp";
 
 export default function DetailProperty() {
   const [properties, setProperties] = useState([]);
@@ -25,16 +26,18 @@ export default function DetailProperty() {
 
   async function fetchData() {
     try {
-      setAxiosConfig(tokenLocal, "https://skkm.online");
       const result = await getDetailProperties(id, slug);
       setProperties(result.data);
-      console.log(result.data);
       setLoading(false);
     } catch (error) {
       console.log(error);
       setLoading(false);
     }
   }
+
+  const phoneWithCountryCode = properties?.user?.phone
+    ? `+62${properties.user.phone}`
+    : "";
 
   return (
     <>
@@ -101,11 +104,18 @@ export default function DetailProperty() {
             </div>
             <div className="flex justify-center w-2/5">
               <div className="shadow-xl p-6 rounded-lg border">
-                <p className="text-center pb-5 font-bold text-5xl">ANAIS</p>
-                <Link className="flex items-center bg-green-primary px-3 py-2 rounded-xl text-xl">
-                  <IoLogoWhatsapp className="text-white" />
-                  <p className="text-white">Whatsapp</p>
-                </Link>
+                <p className="text-center pb-5 font-bold text-5xl">
+                  {properties.user.name}
+                </p>
+                <ReactWhatsapp
+                  number={phoneWithCountryCode}
+                  message={`Halo, ${properties.user.name} saya tertarik dengan properti ${properties.name}`}
+                >
+                  <div className="flex items-center bg-green-primary px-3 py-2 rounded-xl text-xl">
+                    <IoLogoWhatsapp className="text-white" />
+                    <p className="text-white">Whatsapp</p>
+                  </div>
+                </ReactWhatsapp>
               </div>
             </div>
           </div>
