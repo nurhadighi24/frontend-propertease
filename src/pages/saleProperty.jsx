@@ -3,7 +3,10 @@ import Footer from "@/components/footer";
 import { Loading } from "@/components/loading";
 import Navbar from "@/components/navbar";
 import { Input } from "@/components/ui/input";
-import { getProperties } from "@/utils/apis/property/properties";
+import {
+  getProperties,
+  getPropertyShowUser,
+} from "@/utils/apis/property/properties";
 import formatCurrency from "@/utils/currencyIdr";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +31,7 @@ export default function SaleProperty() {
 
   async function fetchData() {
     try {
-      const result = await getProperties();
+      const result = await getPropertyShowUser();
       const filteredProperties = result.data.filter(
         (property) => property.offer_type === "jual"
       );
@@ -80,12 +83,17 @@ export default function SaleProperty() {
               src={`https://skkm.online/storage/${property.image}`}
               alt="gambar properti pilihan"
               titlesChoosen={property.name}
-              locationChoosen={`${property.city}, ${property.district}, ${property.province}`}
+              addressChoosen={property.address}
+              provinceChoosen={property.province}
+              cityChoosen={property.city}
+              districtChoosen={property.district}
               descChoosen={property.description}
               priceChoosen={formatCurrency(property.price)}
               onClick={() =>
                 toDetailProperties(property.id, generateSlug(property.name))
               }
+              phone={property.user.phone}
+              name={property.user.name}
             />
           ))}
         </>

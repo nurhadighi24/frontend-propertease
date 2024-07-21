@@ -61,9 +61,15 @@ export default function DetailProperty() {
                   {formatCurrency(properties.price)}
                 </p>
               </div>
-              <div className="flex items-center gap-3 my-2">
+              <div className="flex items-center gap-1 mt-3">
                 <FaLocationDot className="text-blue-secondary" />
-                <p className="font-bold">{properties.address}</p>
+                <div className=" items-center">
+                  <p className=" font-bold">
+                    Provinsi {properties.province}, Kota/Kabupaten{" "}
+                    {properties.city}, Kelurahan {properties.district}
+                  </p>
+                  <p className="font-bold mb-3">{properties.address}</p>
+                </div>
               </div>
               <div className="flex items-center gap-3 mb-3">
                 <p>Kamar Tidur</p>

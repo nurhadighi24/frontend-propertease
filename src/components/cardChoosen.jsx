@@ -10,7 +10,10 @@ export default function CardChoosen(props) {
     src,
     alt,
     titlesChoosen,
-    locationChoosen,
+    addressChoosen,
+    provinceChoosen,
+    cityChoosen,
+    districtChoosen,
     descChoosen,
     priceChoosen,
     onClick,
@@ -29,9 +32,15 @@ export default function CardChoosen(props) {
         <p className="text-blue-secondary font-bold text-4xl">
           {titlesChoosen}
         </p>
-        <div className="flex items-center gap-1 my-3">
+        <div className="flex items-center gap-1 mt-3">
           <FaLocationDot className="text-blue-secondary" />
-          <p className=" font-bold">{locationChoosen}</p>
+          <div className=" items-center">
+            <p className=" font-bold">
+              Provinsi {provinceChoosen}, Kota/Kabupaten {cityChoosen},
+              Kelurahan {districtChoosen}
+            </p>
+            <p className="font-bold mb-3">{addressChoosen}</p>
+          </div>
         </div>
         <p>{descChoosen}</p>
         <p className="font-bold text-4xl my-3">{priceChoosen}</p>

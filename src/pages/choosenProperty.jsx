@@ -76,7 +76,10 @@ export default function ChoosenProperty() {
               key={index}
               src={`https://skkm.online/storage/${item.image}`}
               titlesChoosen={item.name}
-              locationChoosen={item.address}
+              addressChoosen={item.address}
+              provinceChoosen={item.province}
+              cityChoosen={item.city}
+              districtChoosen={item.district}
               descChoosen={item.description}
               priceChoosen={formatCurrency(item.price)}
               onClick={() =>
