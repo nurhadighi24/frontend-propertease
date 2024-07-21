@@ -36,8 +36,6 @@ export default function CartTab() {
       setAxiosConfig(tokenLocal, "https://skkm.online");
       const result = await getProfile();
       setProfile(result.data);
-
-      console.log(result.data);
     } catch (error) {
       console.error("Failed to fetch profile", error);
     }
