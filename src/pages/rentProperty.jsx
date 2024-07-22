@@ -8,7 +8,7 @@ import {
   getPropertyShowUser,
 } from "@/utils/apis/property/properties";
 import formatCurrency from "@/utils/currencyIdr";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import slugify from "slugify";
 import { Loading } from "@/components/loading";
 
@@ -16,6 +16,8 @@ export default function RentProperty() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
 
   function generateSlug(name) {
     return slugify(name, { lower: true });
@@ -26,15 +28,25 @@ export default function RentProperty() {
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    const searchQuery = searchParams.get("search") || "";
+    setSearch(searchQuery);
+    fetchData(searchQuery);
+  }, [searchParams]);
 
-  async function fetchData() {
+  async function fetchData(searchQuery = "") {
     try {
       const result = await getPropertyShowUser();
-      const filteredProperties = result.data.filter(
-        (property) => property.offer_type === "sewa"
-      );
+      const filteredProperties = result.data.filter((property) => {
+        return (
+          property.offer_type === "sewa" &&
+          (property.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            property.province
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase()) ||
+            property.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            property.district.toLowerCase().includes(searchQuery.toLowerCase()))
+        );
+      });
       setProperties(filteredProperties);
       setLoading(false);
     } catch (error) {
@@ -42,6 +54,10 @@ export default function RentProperty() {
       setLoading(false);
     }
   }
+
+  const handleSearch = () => {
+    setSearchParams({ search });
+  };
 
   return (
     <>
@@ -52,14 +68,22 @@ export default function RentProperty() {
             type="text"
             placeholder="masukkan nama properti atau lokasi"
             className=" py-6"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSearch();
+              }
+            }}
           />
           <svg
-            className="absolute right-3 top-4 "
+            className="absolute right-3 top-4 cursor-pointer"
             xmlns="http://www.w3.org/2000/svg"
             width="14"
             height="14"
             viewBox="0 0 14 14"
             fill="none"
+            onClick={handleSearch}
           >
             <path
               fillRule="evenodd"
@@ -75,6 +99,10 @@ export default function RentProperty() {
       </div>
       {loading ? (
         <Loading />
+      ) : properties.length === 0 ? (
+        <div className="flex justify-center py-10">
+          <p className="font-bold text-xl">Maaf, Properti tidak tersedia</p>
+        </div>
       ) : (
         <>
           {properties.map((property) => (
