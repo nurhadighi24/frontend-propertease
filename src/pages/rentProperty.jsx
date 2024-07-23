@@ -94,7 +94,7 @@ export default function RentProperty() {
           </svg>
         </div>
         <div>
-          <p className="font-bold text-7xl">PROPERTI DISEWAKAN</p>
+          <p className="font-bold text-5xl">PROPERTI DISEWAKAN</p>
         </div>
       </div>
       {loading ? (

@@ -9,7 +9,7 @@ export default function Footer() {
         <Link className=" text-white">Tentang Kami</Link>
         <Link className=" text-white">Hubungi Kami</Link>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center">
         <Link className="text-white font-bold text-3xl" to="/">
           PropertEase
         </Link>

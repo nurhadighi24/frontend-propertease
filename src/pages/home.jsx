@@ -54,6 +54,10 @@ function Home() {
     navigate(`/detail-properti/${propertiesId}/${slug}`);
   };
 
+  const toDetailArticle = (articlesId, slug) => {
+    navigate(`/detail-artikel/${articlesId}/${slug}`);
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -94,6 +98,14 @@ function Home() {
     e.preventDefault();
     navigate(`/properti-pilihan?search=${searchQuery}`);
   };
+
+  function truncateDescription(description, wordLimit) {
+    const words = description.split(" ");
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(" ") + "...";
+    }
+    return description;
+  }
 
   return (
     <>
@@ -157,7 +169,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className=" bg-slate-400 mx-5 mt-5">
+      <div className=" bg-slate-400 mx-5 my-5">
         <div className="flex items-center gap-3 px-5 py-5">
           <p className="text-black text-xl">Properti Pilihan</p>
           <Link
@@ -173,10 +185,10 @@ function Home() {
           <>
             <Swiper
               navigation={true}
-              slidesPerView={4}
-              autoplay={{ delay: 2500, disableOnInteraction: false }}
+              slidesPerView={3}
+              // autoplay={{ delay: 2500, disableOnInteraction: false }}
               pagination={{ clickable: true, dynamicBullets: true }}
-              modules={[Pagination, Autoplay, Navigation]}
+              modules={[Pagination, Navigation]}
             >
               {properties.map((item, index) => (
                 <SwiperSlide key={index}>
@@ -280,7 +292,7 @@ function Home() {
         <>
           <Swiper
             slidesPerView={3}
-            spaceBetween={30}
+            spaceBetween={10}
             autoplay={{ delay: 2500, disableOnInteraction: false }}
             pagination={{ clickable: true, dynamicBullets: true }}
             modules={[Pagination, Autoplay]}
@@ -290,8 +302,11 @@ function Home() {
                 <CardHomeArticle
                   src={`https://skkm.online/storage/${item.image}`}
                   titlesArticle={item.title}
-                  descArticle={item.description}
+                  descArticle={truncateDescription(item.description, 10)}
                   alt="Article Image"
+                  onClick={() =>
+                    toDetailArticle(item.id, generateSlug(item.title))
+                  }
                 ></CardHomeArticle>
               </SwiperSlide>
             ))}

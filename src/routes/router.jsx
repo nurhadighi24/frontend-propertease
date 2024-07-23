@@ -1,4 +1,5 @@
 import ChoosenProperty from "@/pages/choosenProperty";
+import DetailArticle from "@/pages/detailArticle";
 import DetailProperty from "@/pages/detailProperty";
 import Home from "@/pages/home";
 import IklanSaya from "@/pages/iklanSaya";
@@ -21,6 +22,10 @@ export default function Router() {
     {
       path: "/",
       element: <Home />,
+    },
+    {
+      path: "/detail-artikel/:id/:slug",
+      element: <DetailArticle />,
     },
     {
       path: "/login",

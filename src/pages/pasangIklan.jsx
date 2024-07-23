@@ -349,7 +349,7 @@ export default function PasangIklan() {
         </p>
         <Input
           type="text"
-          placeholder="Riverside Residence"
+          placeholder="Nama Properti anda"
           className="w-4/6 mb-3"
           id="inputName"
           name="propertyName"
@@ -378,7 +378,7 @@ export default function PasangIklan() {
             </p>
             <Input
               type="number"
-              placeholder="100000000"
+              placeholder=""
               className=""
               name="propertyPrice"
               register={register}

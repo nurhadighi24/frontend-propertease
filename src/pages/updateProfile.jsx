@@ -124,6 +124,15 @@ export default function UpdateProfile() {
               error={errors.name?.message}
             />
           </div>
+          <div>
+            <p>No. Handphone</p>
+            <Input
+              type="text"
+              name="phoneNumber"
+              register={register}
+              error={errors.name?.message}
+            />
+          </div>
         </div>
         <div className="flex items-center justify-center gap-10 my-5">
           <div>
@@ -131,15 +140,6 @@ export default function UpdateProfile() {
             <Input
               type="email"
               name="email"
-              register={register}
-              error={errors.name?.message}
-            />
-          </div>
-          <div>
-            <p>No. Handphone</p>
-            <Input
-              type="text"
-              name="phoneNumber"
               register={register}
               error={errors.name?.message}
             />

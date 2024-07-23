@@ -94,7 +94,7 @@ export default function SaleProperty() {
           </svg>
         </div>
         <div>
-          <p className="font-bold text-7xl">PROPERTI DIJUAL</p>
+          <p className="font-bold text-5xl">PROPERTI DIJUAL</p>
         </div>
       </div>
       {loading ? (
