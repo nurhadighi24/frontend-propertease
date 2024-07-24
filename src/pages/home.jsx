@@ -148,7 +148,7 @@ function Home() {
               />
               <button
                 type="submit"
-                className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                className="absolute right-5 top-1/2 transform -translate-y-1/2"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

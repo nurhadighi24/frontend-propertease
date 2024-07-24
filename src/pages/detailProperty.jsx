@@ -12,13 +12,35 @@ import { setAxiosConfig } from "@/utils/axiosWithConfig";
 import MapInput from "@/components/map/mapInput";
 import MapDetail from "@/components/map/mapDetail";
 import ReactWhatsapp from "react-whatsapp";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { simulateKpr } from "@/utils/apis/KPR/simulateKRP";
+import { Input } from "@/components/ui/input";
+import Button from "@/components/button";
+
+const schema = z.object({
+  propertyPrice: z.string().min(1, { message: "Harga properti harus diisi" }),
+  downPayment: z.string().min(1, { message: "Uang muka harus diisi" }),
+  interestRate: z.string().min(1, { message: "Suka bunga harus diisi" }),
+  timePeriod: z.string().min(1, { message: "Jangka Waktu harus diisi" }),
+});
 
 export default function DetailProperty() {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [simulatedKpr, setSimulatedKpr] = useState("");
   const { tokenLocal } = useToken();
 
   const { id, slug } = useParams();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
 
   useEffect(() => {
     fetchData();
@@ -32,6 +54,21 @@ export default function DetailProperty() {
     } catch (error) {
       console.log(error);
       setLoading(false);
+    }
+  }
+
+  async function onSubmit(data) {
+    try {
+      const newSimulate = {
+        harga_properti: data.propertyPrice,
+        uang_muka: data.downPayment,
+        suku_bunga: data.interestRate,
+        jangka_waktu: data.timePeriod,
+      };
+      const result = await simulateKpr(newSimulate);
+      setSimulatedKpr(result.data);
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -103,10 +140,65 @@ export default function DetailProperty() {
                     mapCenter={[properties.latitude, properties.longitude]}
                   />
                 )}
-              <div className="border rounded-lg bg-gray-primary p-3">
+              <div className="border rounded-lg bg-gray-primary p-3 my-5">
                 <p className="font-bold">DESKRIPSI SELENGKAPNYA</p>
                 <p>{properties.description}</p>
               </div>
+
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <p className="text-xl mx-5 my-5">Simulasi KPR</p>
+                <div className=" w-1/2 m-5">
+                  <Input
+                    className="my-5"
+                    placeholder="Harga Properti"
+                    type="text"
+                    name="propertyPrice"
+                    register={register}
+                    error={errors.propertyPrice?.message}
+                  />
+                  <Input
+                    className="my-5"
+                    placeholder="Uang Muka"
+                    type="text"
+                    name="downPayment"
+                    register={register}
+                    error={errors.downPayment?.message}
+                  />
+                  <Input
+                    className="my-5"
+                    placeholder="Suku Bunga (%)"
+                    type="text"
+                    name="interestRate"
+                    register={register}
+                    error={errors.interestRate?.message}
+                  />
+                  <Input
+                    className="my-5"
+                    placeholder="Jangka Waktu (Tahun)"
+                    type="text"
+                    name="timePeriod"
+                    register={register}
+                    error={errors.timePeriod?.message}
+                  />
+                </div>
+
+                <Button
+                  label="SIMULASIKAN"
+                  className="text-white bg-blue-secondary w-80 m-5 py-2 text-center rounded-lg"
+                />
+
+                {simulatedKpr && (
+                  <div className=" w-fit m-5 bg-slate-600 rounded p-5 text-white">
+                    <p className="text-xl mb-3">Hasil Simulasi KPR</p>
+                    <p className="mb-3">
+                      Angsuran Bulanan: {simulatedKpr.angsuran_bulanan}
+                    </p>
+                    <p className="mb-3">
+                      Jumlah Pinjaman: {simulatedKpr.jumlah_pinjaman}
+                    </p>
+                  </div>
+                )}
+              </form>
             </div>
             <div className="flex justify-center w-2/5">
               <div className="shadow-xl p-6 rounded-lg border">

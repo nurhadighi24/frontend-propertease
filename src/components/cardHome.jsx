@@ -16,11 +16,11 @@ export default function CardHome(props) {
     onClick,
   } = props;
   return (
-    <div className="bg-white  w-max rounded-xl shadow-xl m-5">
+    <div className="bg-white w-[30rem] rounded-xl shadow-xl m-5">
       <img src={src} alt={alt} className=" w-[30rem] h-[20rem] rounded-t-xl" />
       <div className="pl-3">
         <p className="font-bold text-3xl">{titles}</p>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1">
           <FaLocationDot className="text-blue-secondary text-2xl" />
           <p className=" font-bold">{location}</p>
         </div>
