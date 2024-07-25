@@ -98,15 +98,15 @@ export default function DetailProperty() {
                   {formatCurrency(properties.price)}
                 </p>
               </div>
-              <div className="flex items-center gap-1 mt-3">
-                <FaLocationDot className="text-blue-secondary" />
-                <div className=" items-center">
+              <div className="">
+                <div className=" flex gap-1 items-center">
+                  <FaLocationDot className="text-blue-secondary" />
                   <p className=" font-bold">
                     Provinsi {properties.province}, Kota/Kabupaten{" "}
                     {properties.city}, Kelurahan {properties.district}
                   </p>
-                  <p className="font-bold mb-3">{properties.address}</p>
                 </div>
+                <p className="font-bold mb-3">{properties.address}</p>
               </div>
               <div className="flex items-center gap-3 mb-3">
                 <p>Kamar Tidur</p>
@@ -140,10 +140,6 @@ export default function DetailProperty() {
                     mapCenter={[properties.latitude, properties.longitude]}
                   />
                 )}
-              <div className="border rounded-lg bg-gray-primary p-3 my-5">
-                <p className="font-bold">DESKRIPSI SELENGKAPNYA</p>
-                <p>{properties.description}</p>
-              </div>
 
               <form onSubmit={handleSubmit(onSubmit)}>
                 <p className="text-xl mx-5 my-5">Simulasi KPR</p>
@@ -199,6 +195,10 @@ export default function DetailProperty() {
                   </div>
                 )}
               </form>
+              <div className="border rounded-lg bg-gray-primary p-3 my-5">
+                <p className="font-bold">DESKRIPSI SELENGKAPNYA</p>
+                <p>{properties.description}</p>
+              </div>
             </div>
             <div className="flex justify-center w-2/5">
               <div className="shadow-xl p-6 rounded-lg border">

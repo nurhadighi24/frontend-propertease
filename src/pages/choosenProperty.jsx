@@ -2,6 +2,12 @@ import CardChoosen from "@/components/cardChoosen";
 import Footer from "@/components/footer";
 import { Loading } from "@/components/loading";
 import Navbar from "@/components/navbar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   getProperties,
@@ -14,12 +20,14 @@ import slugify from "slugify";
 
 export default function ChoosenProperty() {
   const [properties, setProperties] = useState([]);
+  const [selectedPropertyType, setSelectedPropertyType] = useState("");
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const initialSearchQuery = searchParams.get("search");
+  const initialPropertyType = searchParams.get("propertyType");
 
   function generateSlug(name) {
     return slugify(name, { lower: true });
@@ -33,8 +41,11 @@ export default function ChoosenProperty() {
     if (initialSearchQuery) {
       setSearchQuery(initialSearchQuery);
     }
+    if (initialPropertyType) {
+      setSelectedPropertyType(initialPropertyType);
+    }
     fetchData();
-  }, [initialSearchQuery]);
+  }, [initialSearchQuery, initialPropertyType]);
 
   async function fetchData() {
     try {
@@ -56,6 +67,12 @@ export default function ChoosenProperty() {
         );
       }
 
+      if (selectedPropertyType) {
+        filteredProperties = filteredProperties.filter(
+          (property) => property.property_type === selectedPropertyType
+        );
+      }
+
       setProperties(filteredProperties);
       setLoading(false);
     } catch (error) {
@@ -73,10 +90,27 @@ export default function ChoosenProperty() {
     navigate(`/properti-pilihan?search=${searchQuery}`);
   };
 
+  const handlePropertyTypeChange = (type) => {
+    setSelectedPropertyType(type);
+    const params = new URLSearchParams(location.search);
+    if (type) {
+      params.set("propertyType", type);
+    } else {
+      params.delete("propertyType");
+    }
+    navigate({ search: params.toString() });
+  };
+
+  // Extract unique offer types from properties
+  const propertyTypes = [
+    ...new Set(properties.map((property) => property.property_type)),
+  ];
+
   return (
     <>
       <Navbar />
-      <div className="flex ml-10 py-5">
+
+      <div className="flex items-center justify-between mx-10 py-5">
         <form onSubmit={handleSearchSubmit} className="relative w-2/6">
           <Input
             type="text"
@@ -102,6 +136,34 @@ export default function ChoosenProperty() {
             </svg>
           </button>
         </form>
+        <DropdownMenu>
+          <DropdownMenuTrigger className="flex justify-between items-center rounded-md bg-white py-3 px-3 border border-blue-primary gap-20">
+            {selectedPropertyType || "Pilih Tipe Penawaran"}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="10"
+              height="5"
+              viewBox="0 0 10 5"
+              fill="none"
+            >
+              <path d="M5 4L0.669872 0.25L9.33013 0.25L5 4Z" fill="#28303F" />
+            </svg>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onClick={() => handlePropertyTypeChange("")}>
+              Semua Tipe Penawaran
+            </DropdownMenuItem>
+            {propertyTypes.map((type, index) => (
+              <DropdownMenuItem
+                className="cursor-pointer"
+                key={index}
+                onClick={() => handlePropertyTypeChange(type)}
+              >
+                {type}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       {loading ? (
         <Loading />
@@ -127,6 +189,7 @@ export default function ChoosenProperty() {
               }
               phone={item.user.phone}
               name={item.user.name}
+              propertyType={item.property_type}
             />
           ))}
         </>

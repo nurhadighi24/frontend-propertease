@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import { IoLogoWhatsapp } from "react-icons/io";
 import ReactWhatsapp from "react-whatsapp";
+import { AiOutlineInfo } from "react-icons/ai";
 
 export default function CardChoosen(props) {
   const {
@@ -19,6 +20,7 @@ export default function CardChoosen(props) {
     onClick,
     phone,
     name,
+    propertyType,
   } = props;
 
   const phoneWithCountryCode = `+62${phone}`;
@@ -28,18 +30,24 @@ export default function CardChoosen(props) {
       <img src={src} alt={alt} className=" w-[30rem] h-[20rem] rounded-xl" />
 
       <div>
-        <p className="text-blue-secondary font-bold text-4xl">
-          {titlesChoosen}
-        </p>
-        <div className="flex items-center gap-1 mt-3">
-          <FaLocationDot className="text-blue-secondary" />
-          <div className=" items-center">
+        <div className="flex justify-between items-center">
+          <p className="text-blue-secondary font-bold text-4xl">
+            {titlesChoosen}
+          </p>
+          <div className="flex items-center mx-3">
+            <AiOutlineInfo className="text-blue-secondary" />
+            <p>{propertyType}</p>
+          </div>
+        </div>
+        <div className=" mt-3">
+          <div className=" flex gap-1 items-center">
+            <FaLocationDot className="text-blue-secondary" />
             <p className=" font-bold">
               Provinsi {provinceChoosen}, Kota/Kabupaten {cityChoosen},
               Kelurahan {districtChoosen}
             </p>
-            <p className="font-bold mb-3">{addressChoosen}</p>
           </div>
+          <p className="font-bold mb-3">{addressChoosen}</p>
         </div>
         <p>{descChoosen}</p>
         <p className="font-bold text-4xl my-3">{priceChoosen}</p>
