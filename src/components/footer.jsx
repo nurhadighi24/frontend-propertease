@@ -6,7 +6,9 @@ export default function Footer() {
     <div className="flex items-center justify-around w-full bg-blue-primary bottom-0 py-5">
       <div className=" flex flex-col">
         <p className=" text-black font-bold text-2xl py-3">TENTANG</p>
-        <Link className=" text-white">Tentang Kami</Link>
+        <Link className=" text-white" to="/tentang-kami">
+          Tentang Kami
+        </Link>
         <Link className=" text-white">Hubungi Kami</Link>
       </div>
       <div className="flex items-center">
