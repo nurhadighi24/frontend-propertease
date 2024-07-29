@@ -132,6 +132,10 @@ export default function DetailProperty() {
                 <p>Garasi</p>
                 <p className="font-bold">{properties.garage}</p>
               </div>
+              <div className="flex items-center gap-3 mb-3">
+                <p>Jumlah Lantai</p>
+                <p className="font-bold">{properties.jumlah_lantai}</p>
+              </div>
               {properties.latitude !== null &&
                 properties.longitude !== null && (
                   <MapDetail
