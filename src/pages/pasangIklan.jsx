@@ -51,6 +51,7 @@ const schema = z.object({
   rentalPeriodEnd: z.string().date().optional().or(z.literal("")),
   latitudeProperty: z.string().min(1, { message: "Latitude harus diisi" }),
   longitudeProperty: z.string().min(1, { message: "Longitude harus diisi" }),
+  propertyFloor: z.number().min(0),
 });
 
 export default function PasangIklan() {
@@ -90,6 +91,7 @@ export default function PasangIklan() {
       propertyBuildingArea: 0,
       propertyLandArea: 0,
       propertyGarage: 0,
+      propertyFloor: 0,
     },
   });
 
@@ -139,6 +141,7 @@ export default function PasangIklan() {
         setLat(result.data.latitude);
         setLng(result.data.longitude);
         setPreviewUrl(`https://skkm.online/storage/${result.data.image}`);
+        setValue("propertyFloor", result.data.jumlah_lantai);
       }
       setLoading(false);
     } catch (error) {
@@ -182,6 +185,7 @@ export default function PasangIklan() {
         rental_end_date: data.rentalPeriodEnd || "",
         latitude: lat,
         longitude: lng,
+        jumlah_lantai: parseInt(data.propertyFloor),
       };
       setAxiosConfig(tokenLocal, "https://skkm.online");
       await createProperty(newProperty, selectedImage);
@@ -239,6 +243,7 @@ export default function PasangIklan() {
         rental_end_date: data.rentalPeriodEnd || "",
         latitude: String(lat),
         longitude: String(lng),
+        jumlah_lantai: parseInt(data.propertyFloor),
       };
       setAxiosConfig(tokenLocal, "https://skkm.online");
       await updateProperty(editProperty, selectedImage);
@@ -456,6 +461,17 @@ export default function PasangIklan() {
               name="propertyGarage"
               register={register}
               error={errors.propertyGarage?.message}
+            />
+          </div>
+          <div>
+            <p className="font-bold">Jumlah Lantai</p>
+            <Input
+              type="number"
+              placeholder="1"
+              className=""
+              name="propertyFloor"
+              register={register}
+              error={errors.propertyFloor?.message}
             />
           </div>
         </div>
