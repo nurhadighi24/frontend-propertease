@@ -169,9 +169,9 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className=" bg-slate-400 mx-5 my-5">
+      <div className=" bg-blue-secondary mx-5 my-5">
         <div className="flex items-center gap-3 px-5 py-5">
-          <p className="text-black text-xl">Properti Pilihan</p>
+          <p className="text-white text-xl">Properti Pilihan</p>
           <Link
             to="/properti-pilihan"
             className="bg-white border border-blue-secondary hover:border-white hover:text-white hover:bg-blue-secondary rounded-2xl px-3 py-1 text-blue-secondary"
@@ -185,8 +185,18 @@ function Home() {
           <>
             <Swiper
               navigation={true}
-              slidesPerView={3}
-              // autoplay={{ delay: 2500, disableOnInteraction: false }}
+              // Set default slidesPerView
+
+              breakpoints={{
+                // when window width is >= 768px (laptop)
+                768: {
+                  slidesPerView: 1,
+                },
+                // when window width is >= 1024px (desktop)
+                1024: {
+                  slidesPerView: 2,
+                },
+              }}
               pagination={{ clickable: true, dynamicBullets: true }}
               modules={[Pagination, Navigation]}
             >
@@ -212,7 +222,11 @@ function Home() {
         )}
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <p className="text-xl mx-5 my-5">Simulasi KPR</p>
+        <div className="flex items-center mx-5 my-5">
+          <div className="flex-grow border-t border-gray-300"></div>
+          <p className="text-3xl mx-5 text-center">Simulasi KPR</p>
+          <div className="flex-grow border-t border-gray-300"></div>
+        </div>
         <div className=" w-1/2 m-5">
           <Input
             className="my-5"
@@ -265,7 +279,11 @@ function Home() {
           </div>
         )}
       </form>
-      <p className="text-2xl my-5 mx-5">Kenapa PropertEase?</p>
+      <div className="flex items-center mx-5 my-5">
+        <div className="flex-grow border-t border-gray-300"></div>
+        <p className="text-3xl mx-5 text-center">Kenapa PropertEase?</p>
+        <div className="flex-grow border-t border-gray-300"></div>
+      </div>
       <div className=" md:flex md:justify-around grid grid-cols-2 max-sm:grid-cols-1 ">
         <CardHomeWhy
           titlesLabel="Aman & Mudah"
@@ -284,14 +302,27 @@ function Home() {
           descLabel="Perhitungan yang lebih mudah dengan simulasi KPR"
         />
       </div>
-      <p className="mx-5 my-5 text-2xl">Artikel PropertEase</p>
+      <div className="flex items-center mx-5 my-5">
+        <div className="flex-grow border-t border-gray-300"></div>
+        <p className="text-3xl mx-5 text-center">Artikel PropertEase</p>
+        <div className="flex-grow border-t border-gray-300"></div>
+      </div>
 
       {loading ? (
         <Loading />
       ) : (
         <>
           <Swiper
-            slidesPerView={3}
+            breakpoints={{
+              // when window width is >= 768px (laptop)
+              768: {
+                slidesPerView: 1,
+              },
+              // when window width is >= 1024px (desktop)
+              1024: {
+                slidesPerView: 2,
+              },
+            }}
             spaceBetween={10}
             autoplay={{ delay: 2500, disableOnInteraction: false }}
             pagination={{ clickable: true, dynamicBullets: true }}
