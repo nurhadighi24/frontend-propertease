@@ -118,6 +118,7 @@ export default function PasangIklan() {
       setAxiosConfig(tokenLocal, "https://skkm.online");
       const result = await getDetailProperties(id);
       setProperty(result.data);
+      console.log(result.data);
       if (result.data) {
         setSelectedId(result.data.id);
         setValue("propertyName", result.data.name);
@@ -142,7 +143,10 @@ export default function PasangIklan() {
         setValue("longitudeProperty", String(result.data.longitude));
         setLat(result.data.latitude);
         setLng(result.data.longitude);
-        setPreviewImage(`https://skkm.online/storage/${result.data.image}`);
+        const imagePreviews = result.data.image_properties.map(
+          (img) => `https://skkm.online/storage/${img.image}`
+        );
+        setPreviewImage(imagePreviews);
         setValue("propertyFloor", result.data.jumlah_lantai);
       }
       setLoading(false);
@@ -253,7 +257,12 @@ export default function PasangIklan() {
         jumlah_lantai: parseInt(data.propertyFloor),
       };
       setAxiosConfig(tokenLocal, "https://skkm.online");
-      await updateProperty(editProperty, selectedImage);
+      const propertyResponse = await updateProperty(editProperty, null);
+      await createImageProperty(
+        editProperty,
+        selectedImage,
+        propertyResponse.data.id
+      );
       setLoading(false);
       navigate("/");
       toast({

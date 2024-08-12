@@ -145,7 +145,11 @@ export default function IklanSaya() {
           {filteredProperties.map((property) => (
             <CardIklanSaya
               key={property.id}
-              src={`https://skkm.online/storage/${property.image}`}
+              src={
+                property.image_properties[0]?.image
+                  ? `https://skkm.online/storage/${property.image_properties[0].image}`
+                  : "path/to/default/image.jpg"
+              }
               alt={property.name}
               titles={property.name}
               location={property.address}
