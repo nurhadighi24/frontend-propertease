@@ -108,7 +108,11 @@ export default function SaleProperty() {
           {properties.map((property) => (
             <CardChoosen
               key={property.id}
-              src={`https://skkm.online/storage/${property.image}`}
+              src={
+                property.image_properties[0]?.image
+                  ? `https://skkm.online/storage/${property.image_properties[0].image}`
+                  : "path/to/default/image.jpg"
+              }
               alt="gambar properti pilihan"
               titlesChoosen={property.name}
               addressChoosen={property.address}

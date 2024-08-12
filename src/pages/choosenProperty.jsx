@@ -176,7 +176,12 @@ export default function ChoosenProperty() {
           {properties.map((item, index) => (
             <CardChoosen
               key={index}
-              src={`https://skkm.online/storage/${item.image}`}
+              src={
+                item.image_properties[0]?.image
+                  ? `https://skkm.online/storage/${item.image_properties[0].image}`
+                  : "path/to/default/image.jpg"
+              }
+              alt={item.name}
               titlesChoosen={item.name}
               addressChoosen={item.address}
               provinceChoosen={item.province}
