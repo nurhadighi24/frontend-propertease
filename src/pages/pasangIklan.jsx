@@ -57,6 +57,8 @@ const schema = z.object({
   propertyFloor: z.number().min(0),
 });
 
+const MAX_FILE_SIZE_MB = 5; // Maximum file size in MB
+
 export default function PasangIklan() {
   const { id } = useParams();
   const [selectedId, setSelectedId] = useState(0);
@@ -67,17 +69,41 @@ export default function PasangIklan() {
   const [selectedImage, setSelectedImage] = useState([]);
   const [previewImage, setPreviewImage] = useState([]);
   const [selectedOfferType, setSelectedOfferType] = useState("jual");
+  const [fileError, setFileError] = useState(""); // State for file error
   const navigate = useNavigate();
   const { toast } = useToast();
   const { tokenLocal } = useToken();
 
   const handleImageChange = (event) => {
-    const files = Array.from(event.target.files); // Mengambil semua file
-    setSelectedImage(files);
+    const files = Array.from(event.target.files);
+    let validFiles = [];
+    let errorMessage = "";
 
-    const imagePreviews = files.map((file) => URL.createObjectURL(file));
-    setPreviewImage(imagePreviews);
+    files.forEach((file) => {
+      if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+        // Check file size
+        errorMessage = `File ${file.name} is too large. Maximum size is ${MAX_FILE_SIZE_MB} MB.`;
+      } else {
+        validFiles.push(file);
+      }
+    });
+
+    if (errorMessage) {
+      setFileError(errorMessage);
+      toast({
+        variant: "destructive",
+        title: "File Size Error",
+        description: errorMessage,
+      });
+    } else {
+      setFileError("");
+      setSelectedImage(validFiles);
+
+      const imagePreviews = validFiles.map((file) => URL.createObjectURL(file));
+      setPreviewImage(imagePreviews);
+    }
   };
+
   const {
     reset,
     register,
@@ -607,6 +633,7 @@ export default function PasangIklan() {
                 multiple
               />
             </label>
+            {fileError && <div className="text-red-600 mb-3">{fileError}</div>}
             {previewImage.length > 0 && (
               <div className="ml-4 flex flex-wrap gap-4">
                 {previewImage.map((preview, index) => (

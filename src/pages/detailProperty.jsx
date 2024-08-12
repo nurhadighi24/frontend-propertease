@@ -19,9 +19,10 @@ import { simulateKpr } from "@/utils/apis/KPR/simulateKRP";
 import { Input } from "@/components/ui/input";
 import Button from "@/components/button";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const schema = z.object({
   propertyPrice: z.string().min(1, { message: "Harga properti harus diisi" }),
@@ -37,6 +38,13 @@ export default function DetailProperty() {
   const { tokenLocal } = useToken();
 
   const { id, slug } = useParams();
+
+  const pagination = {
+    clickable: true,
+    renderBullet: function (index, className) {
+      return '<span class="' + className + '">' + (index + 1) + "</span>";
+    },
+  };
 
   const {
     register,
@@ -90,7 +98,11 @@ export default function DetailProperty() {
           <div className="flex items-center">
             <div className="w-3/5">
               <div>
-                <Swiper navigation={true} modules={[Navigation]}>
+                <Swiper
+                  navigation={true}
+                  modules={[Navigation, Pagination]}
+                  pagination={pagination}
+                >
                   {properties.image_properties.map((imageObj, index) => (
                     <SwiperSlide key={imageObj.id}>
                       <img
