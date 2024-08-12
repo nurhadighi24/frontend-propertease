@@ -13,7 +13,10 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { createProperty } from "@/utils/apis/property/pasangIklan";
+import {
+  createImageProperty,
+  createProperty,
+} from "@/utils/apis/property/pasangIklan";
 import { useToast } from "@/components/ui/use-toast";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { CrossCircledIcon } from "@radix-ui/react-icons";
@@ -61,21 +64,20 @@ export default function PasangIklan() {
   const [loading, setLoading] = useState(false);
   const [lat, setLat] = useState(null);
   const [lng, setLng] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState([]);
+  const [previewImage, setPreviewImage] = useState([]);
   const [selectedOfferType, setSelectedOfferType] = useState("jual");
-  const [previewUrl, setPreviewUrl] = useState(null);
   const navigate = useNavigate();
   const { toast } = useToast();
   const { tokenLocal } = useToken();
 
   const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setSelectedImage(file);
-      setPreviewUrl(URL.createObjectURL(file));
-    }
-  };
+    const files = Array.from(event.target.files); // Mengambil semua file
+    setSelectedImage(files);
 
+    const imagePreviews = files.map((file) => URL.createObjectURL(file));
+    setPreviewImage(imagePreviews);
+  };
   const {
     reset,
     register,
@@ -140,7 +142,7 @@ export default function PasangIklan() {
         setValue("longitudeProperty", String(result.data.longitude));
         setLat(result.data.latitude);
         setLng(result.data.longitude);
-        setPreviewUrl(`https://skkm.online/storage/${result.data.image}`);
+        setPreviewImage(`https://skkm.online/storage/${result.data.image}`);
         setValue("propertyFloor", result.data.jumlah_lantai);
       }
       setLoading(false);
@@ -188,7 +190,12 @@ export default function PasangIklan() {
         jumlah_lantai: parseInt(data.propertyFloor),
       };
       setAxiosConfig(tokenLocal, "https://skkm.online");
-      await createProperty(newProperty, selectedImage);
+      const propertyResponse = await createProperty(newProperty, null); // Assuming property is created first
+      await createImageProperty(
+        newProperty,
+        selectedImage,
+        propertyResponse.data.id
+      );
       navigate("/");
       setLoading(false);
       toast({
@@ -582,16 +589,25 @@ export default function PasangIklan() {
                 </div>
               </div>
               <Input
+                name="image"
                 id="inputImageProducts"
                 type="file"
                 accept="image/png, image/jpeg"
                 className="hidden"
                 onChange={handleImageChange}
+                multiple
               />
             </label>
-            {previewUrl && (
-              <div className="ml-4">
-                <img src={previewUrl} alt="Preview" className=" w-60 h-60 " />
+            {previewImage.length > 0 && (
+              <div className="ml-4 flex flex-wrap gap-4">
+                {previewImage.map((preview, index) => (
+                  <img
+                    key={index}
+                    src={preview}
+                    alt={`Preview ${index}`}
+                    className="w-60 h-60 object-cover"
+                  />
+                ))}
               </div>
             )}
           </div>
