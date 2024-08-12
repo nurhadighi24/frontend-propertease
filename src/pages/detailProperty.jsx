@@ -18,6 +18,10 @@ import * as z from "zod";
 import { simulateKpr } from "@/utils/apis/KPR/simulateKRP";
 import { Input } from "@/components/ui/input";
 import Button from "@/components/button";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 
 const schema = z.object({
   propertyPrice: z.string().min(1, { message: "Harga properti harus diisi" }),
@@ -86,11 +90,17 @@ export default function DetailProperty() {
           <div className="flex items-center">
             <div className="w-3/5">
               <div>
-                <img
-                  src={`https://skkm.online/storage/${properties.image}`}
-                  alt="Gambar Detail Properti"
-                  className=" rounded-lg"
-                />
+                <Swiper navigation={true} modules={[Navigation]}>
+                  {properties.image_properties.map((imageObj, index) => (
+                    <SwiperSlide key={imageObj.id}>
+                      <img
+                        src={`https://skkm.online/storage/${imageObj.image}`}
+                        alt={`Gambar Detail Properti ${index + 1}`}
+                        className="rounded-lg"
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
               </div>
               <div className="flex items-center justify-between mt-3">
                 <p className=" text-3xl font-bold">{properties.name}</p>
