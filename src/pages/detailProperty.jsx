@@ -102,25 +102,26 @@ export default function DetailProperty() {
                   navigation={true}
                   modules={[Navigation, Pagination]}
                   pagination={pagination}
+                  className=""
                 >
                   {properties.image_properties.map((imageObj, index) => (
                     <SwiperSlide key={imageObj.id}>
                       <img
                         src={`https://skkm.online/storage/${imageObj.image}`}
                         alt={`Gambar Detail Properti ${index + 1}`}
-                        className="rounded-lg"
+                        className="rounded-lg w-full h-screen"
                       />
                     </SwiperSlide>
                   ))}
                 </Swiper>
               </div>
               <div className="flex items-center justify-between mt-3">
-                <p className=" text-5xl font-bold">{properties.name}</p>
-                <p className=" text-5xl font-bold">
+                <p className=" text-3xl font-bold">{properties.name}</p>
+                <p className=" text-3xl font-bold">
                   {formatCurrency(properties.price)}
                 </p>
               </div>
-              <div className="">
+              <div className="my-5">
                 <div className=" flex gap-1 items-center">
                   <FaLocationDot className="text-blue-secondary" />
                   <p className=" font-bold">
@@ -232,17 +233,17 @@ export default function DetailProperty() {
               <div className="border rounded-lg bg-gray-primary p-3 my-5">
                 <p className="font-bold">DESKRIPSI SELENGKAPNYA</p>
                 <p>{properties.description}</p>
-              </div>
-              <div className="my-4">
-                <a
-                  href={properties.other_links}
-                  className="text-3xl text-blue-500"
-                >
-                  Link Tambahan
-                </a>
+                <div className="my-4">
+                  <a
+                    href={properties.other_links}
+                    className="text-3xl text-blue-500"
+                  >
+                    Link Tambahan
+                  </a>
+                </div>
               </div>
             </div>
-            <div className="flex justify-center h-fit gap-5">
+            <div className="flex justify-center h-fit gap-5 mt-64">
               <div className="shadow-xl p-6 rounded-lg border text-center">
                 <p className="text-center pb-5 font-bold text-5xl">
                   {properties.user.name}
