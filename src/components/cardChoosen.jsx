@@ -29,7 +29,7 @@ export default function CardChoosen(props) {
     <div className="flex justify-center items-center mx-5 gap-3 my-10 border rounded-xl shadow-2xl">
       <img src={src} alt={alt} className=" w-[30rem] h-[20rem] rounded-xl" />
 
-      <div>
+      <div className="w-4/6 py-5">
         <div className="flex justify-between items-center">
           <p className="text-blue-secondary font-bold text-4xl">
             {titlesChoosen}
