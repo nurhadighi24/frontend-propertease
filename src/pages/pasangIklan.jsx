@@ -55,6 +55,8 @@ const schema = z.object({
   latitudeProperty: z.string().min(1, { message: "Latitude harus diisi" }),
   longitudeProperty: z.string().min(1, { message: "Longitude harus diisi" }),
   propertyFloor: z.number().min(0),
+  other_links: z.string(),
+  gmaps_link: z.string(),
 });
 
 const MAX_FILE_SIZE_MB = 5; // Maximum file size in MB
@@ -174,6 +176,8 @@ export default function PasangIklan() {
         );
         setPreviewImage(imagePreviews);
         setValue("propertyFloor", result.data.jumlah_lantai);
+        setValue("other_links", result.data.other_links);
+        setValue("gmaps_link", result.data.gmaps_link);
       }
       setLoading(false);
     } catch (error) {
@@ -218,6 +222,8 @@ export default function PasangIklan() {
         latitude: lat,
         longitude: lng,
         jumlah_lantai: parseInt(data.propertyFloor),
+        other_links: data.other_links,
+        gmaps_link: data.gmaps_link,
       };
       setAxiosConfig(tokenLocal, "https://skkm.online");
       const propertyResponse = await createProperty(newProperty, null); // Assuming property is created first
@@ -281,6 +287,8 @@ export default function PasangIklan() {
         latitude: String(lat),
         longitude: String(lng),
         jumlah_lantai: parseInt(data.propertyFloor),
+        other_links: data.other_links,
+        gmaps_link: data.gmaps_link,
       };
       setAxiosConfig(tokenLocal, "https://skkm.online");
       const propertyResponse = await updateProperty(editProperty, null);
@@ -594,6 +602,16 @@ export default function PasangIklan() {
             error={errors.longitudeProperty?.message}
           />
         </div>
+        <div className="my-3">
+          <p className="font-bold">Link Google Maps</p>
+          <Input
+            type="url"
+            className="w-2/6 mb-10"
+            name="gmaps_link"
+            register={register}
+            error={errors.gmaps_link?.message}
+          />
+        </div>
         <div className="my-5">
           <MapInput lat={lat} lng={lng} onLatLngChange={handleLatLngChange} />
         </div>
@@ -649,7 +667,13 @@ export default function PasangIklan() {
           </div>
           <div>
             <p className="font-bold">Tempelkan URL (Opsional)</p>
-            <Input type="url" className="w-3/6" />
+            <Input
+              type="url"
+              className="w-3/6"
+              name="other_links"
+              register={register}
+              error={errors.other_links?.message}
+            />
           </div>
         </div>
         <div className="flex items-center justify-evenly w-4/6 mt-5">

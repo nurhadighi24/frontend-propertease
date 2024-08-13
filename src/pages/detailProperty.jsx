@@ -95,7 +95,7 @@ export default function DetailProperty() {
         <Loading />
       ) : (
         <div className="mx-5">
-          <div className="flex items-center">
+          <div className="flex gap-5">
             <div className="w-3/5">
               <div>
                 <Swiper
@@ -115,8 +115,8 @@ export default function DetailProperty() {
                 </Swiper>
               </div>
               <div className="flex items-center justify-between mt-3">
-                <p className=" text-3xl font-bold">{properties.name}</p>
-                <p className=" text-2xl font-bold">
+                <p className=" text-5xl font-bold">{properties.name}</p>
+                <p className=" text-5xl font-bold">
                   {formatCurrency(properties.price)}
                 </p>
               </div>
@@ -157,6 +157,14 @@ export default function DetailProperty() {
               <div className="flex items-center gap-3 mb-3">
                 <p>Jumlah Lantai</p>
                 <p className="font-bold">{properties.jumlah_lantai}</p>
+              </div>
+              <div className="my-4">
+                <a
+                  href={properties.gmaps_link}
+                  className="text-3xl text-blue-500"
+                >
+                  Link Google Maps
+                </a>
               </div>
               {properties.latitude !== null &&
                 properties.longitude !== null && (
@@ -225,9 +233,17 @@ export default function DetailProperty() {
                 <p className="font-bold">DESKRIPSI SELENGKAPNYA</p>
                 <p>{properties.description}</p>
               </div>
+              <div className="my-4">
+                <a
+                  href={properties.other_links}
+                  className="text-3xl text-blue-500"
+                >
+                  Link Tambahan
+                </a>
+              </div>
             </div>
-            <div className="flex justify-center w-2/5">
-              <div className="shadow-xl p-6 rounded-lg border">
+            <div className="flex justify-center h-fit gap-5">
+              <div className="shadow-xl p-6 rounded-lg border text-center">
                 <p className="text-center pb-5 font-bold text-5xl">
                   {properties.user.name}
                 </p>

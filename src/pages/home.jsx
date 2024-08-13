@@ -207,7 +207,11 @@ function Home() {
               {properties.map((item, index) => (
                 <SwiperSlide key={index}>
                   <CardHome
-                    src={`https://skkm.online/storage/${item.image}`}
+                    src={
+                      item.image_properties[0]?.image
+                        ? `https://skkm.online/storage/${item.image_properties[0].image}`
+                        : "path/to/default/image.jpg"
+                    }
                     titles={item.name}
                     location={item.address}
                     bedroom={item.bedrooms}
@@ -227,49 +231,61 @@ function Home() {
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-center mx-5 my-5">
-          <div className="flex-grow border-t border-gray-300"></div>
+          <div className="flex-grow border-t-4 border-gray-300"></div>
           <p className="text-3xl mx-5 text-center">Simulasi KPR</p>
-          <div className="flex-grow border-t border-gray-300"></div>
+          <div className="flex-grow border-t-4 border-gray-300"></div>
         </div>
-        <div className=" w-1/2 m-5">
-          <Input
-            className="my-5"
-            placeholder="Harga Properti"
-            type="text"
-            name="propertyPrice"
-            register={register}
-            error={errors.propertyPrice?.message}
-          />
-          <Input
-            className="my-5"
-            placeholder="Uang Muka"
-            type="text"
-            name="downPayment"
-            register={register}
-            error={errors.downPayment?.message}
-          />
-          <Input
-            className="my-5"
-            placeholder="Suku Bunga (%)"
-            type="text"
-            name="interestRate"
-            register={register}
-            error={errors.interestRate?.message}
-          />
-          <Input
-            className="my-5"
-            placeholder="Jangka Waktu (Tahun)"
-            type="text"
-            name="timePeriod"
-            register={register}
-            error={errors.timePeriod?.message}
-          />
+        <div className="md:flex md:justify-between items-center gap-5 m-5">
+          <div className="w-3/6">
+            <p className="text-justify md:text-2xl font-semibold">
+              Simulasi KPR (Kredit Pemilikan Rumah) adalah alat yang membantu
+              calon pembeli rumah menghitung angsuran dan biaya pinjaman KPR.
+              Dengan memasukkan jumlah pinjaman, tenor, suku bunga, dan uang
+              muka, calon pembeli dapat memperkirakan angsuran bulanan serta
+              biaya total pinjaman. Simulasi ini memudahkan perencanaan
+              keuangan, sehingga calon pembeli dapat memilih opsi yang paling
+              sesuai dengan kemampuan finansial mereka.
+            </p>
+          </div>
+          <div className="w-3/6">
+            <Input
+              className="my-5"
+              placeholder="Harga Properti"
+              type="text"
+              name="propertyPrice"
+              register={register}
+              error={errors.propertyPrice?.message}
+            />
+            <Input
+              className="my-5"
+              placeholder="Uang Muka"
+              type="text"
+              name="downPayment"
+              register={register}
+              error={errors.downPayment?.message}
+            />
+            <Input
+              className="my-5"
+              placeholder="Suku Bunga (%)"
+              type="text"
+              name="interestRate"
+              register={register}
+              error={errors.interestRate?.message}
+            />
+            <Input
+              className="my-5"
+              placeholder="Jangka Waktu (Tahun)"
+              type="text"
+              name="timePeriod"
+              register={register}
+              error={errors.timePeriod?.message}
+            />
+            <Button
+              label="SIMULASIKAN"
+              className="text-white bg-blue-secondary w-80 m-5 py-2 text-center rounded-lg"
+            />
+          </div>
         </div>
-
-        <Button
-          label="SIMULASIKAN"
-          className="text-white bg-blue-secondary w-80 m-5 py-2 text-center rounded-lg"
-        />
 
         {simulatedKpr && (
           <div className=" w-fit m-5 bg-slate-600 rounded p-5 text-white">
@@ -284,9 +300,9 @@ function Home() {
         )}
       </form>
       <div className="flex items-center mx-5 my-5">
-        <div className="flex-grow border-t border-gray-300"></div>
+        <div className="flex-grow border-t-4 border-gray-300"></div>
         <p className="text-3xl mx-5 text-center">Kenapa PropertEase?</p>
-        <div className="flex-grow border-t border-gray-300"></div>
+        <div className="flex-grow border-t-4 border-gray-300"></div>
       </div>
       <div className=" md:flex md:justify-around grid grid-cols-2 max-sm:grid-cols-1 ">
         <CardHomeWhy
@@ -307,9 +323,9 @@ function Home() {
         />
       </div>
       <div className="flex items-center mx-5 my-5">
-        <div className="flex-grow border-t border-gray-300"></div>
+        <div className="flex-grow border-t-4 border-gray-300"></div>
         <p className="text-3xl mx-5 text-center">Artikel PropertEase</p>
-        <div className="flex-grow border-t border-gray-300"></div>
+        <div className="flex-grow border-t-4 border-gray-300"></div>
       </div>
 
       {loading ? (
