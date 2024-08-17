@@ -21,6 +21,7 @@ import slugify from "slugify";
 export default function ChoosenProperty() {
   const [properties, setProperties] = useState([]);
   const [selectedPropertyType, setSelectedPropertyType] = useState("");
+  const [selectedPriceFilter, setSelectedPriceFilter] = useState("");
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ export default function ChoosenProperty() {
   const searchParams = new URLSearchParams(location.search);
   const initialSearchQuery = searchParams.get("search");
   const initialPropertyType = searchParams.get("propertyType");
+  const initialPriceFilter = searchParams.get("price");
 
   function generateSlug(name) {
     return slugify(name, { lower: true });
@@ -44,8 +46,11 @@ export default function ChoosenProperty() {
     if (initialPropertyType) {
       setSelectedPropertyType(initialPropertyType);
     }
+    if (initialPriceFilter) {
+      setSelectedPriceFilter(initialPriceFilter);
+    }
     fetchData();
-  }, [initialSearchQuery, initialPropertyType]);
+  }, [initialSearchQuery, initialPropertyType, initialPriceFilter]);
 
   async function fetchData() {
     try {
@@ -73,6 +78,14 @@ export default function ChoosenProperty() {
         );
       }
 
+      if (selectedPriceFilter) {
+        filteredProperties = filteredProperties.filter((property) =>
+          selectedPriceFilter === "below-500"
+            ? property.price < 500000000
+            : property.price >= 500000000
+        );
+      }
+
       setProperties(filteredProperties);
       setLoading(false);
     } catch (error) {
@@ -97,6 +110,17 @@ export default function ChoosenProperty() {
       params.set("propertyType", type);
     } else {
       params.delete("propertyType");
+    }
+    navigate({ search: params.toString() });
+  };
+
+  const handlePriceFilterChange = (filter) => {
+    setSelectedPriceFilter(filter);
+    const params = new URLSearchParams(location.search);
+    if (filter) {
+      params.set("price", filter);
+    } else {
+      params.delete("price");
     }
     navigate({ search: params.toString() });
   };
@@ -162,6 +186,40 @@ export default function ChoosenProperty() {
                 {type}
               </DropdownMenuItem>
             ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger className="flex justify-between items-center rounded-md bg-white py-3 px-3 border border-blue-primary gap-20">
+            {selectedPriceFilter === "below-500"
+              ? "Di Bawah 500 Juta"
+              : selectedPriceFilter === "above-500"
+              ? "Di Atas 500 Juta"
+              : "Filter Harga"}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="10"
+              height="5"
+              viewBox="0 0 10 5"
+              fill="none"
+            >
+              <path d="M5 4L0.669872 0.25L9.33013 0.25L5 4Z" fill="#28303F" />
+            </svg>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onClick={() => handlePriceFilterChange("")}>
+              Semua Harga
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => handlePriceFilterChange("below-500")}
+            >
+              Di Bawah 500 Juta
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => handlePriceFilterChange("above-500")}
+            >
+              Di Atas 500 Juta
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
