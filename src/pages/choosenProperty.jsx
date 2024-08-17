@@ -138,7 +138,7 @@ export default function ChoosenProperty() {
         </form>
         <DropdownMenu>
           <DropdownMenuTrigger className="flex justify-between items-center rounded-md bg-white py-3 px-3 border border-blue-primary gap-20">
-            {selectedPropertyType || "Pilih Tipe Penawaran"}
+            {selectedPropertyType || "Pilih Tipe Properti"}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="10"
