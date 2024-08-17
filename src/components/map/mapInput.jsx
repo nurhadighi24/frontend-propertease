@@ -8,6 +8,9 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useRef, useState } from "react";
+import L from "leaflet";
+import { HiLocationMarker } from "react-icons/hi";
+import { renderToStaticMarkup } from "react-dom/server";
 
 export default function MapInput({ lat, lng, onLatLngChange }) {
   const [markerLat, setMarkerLat] = useState(lat);
@@ -50,6 +53,14 @@ export default function MapInput({ lat, lng, onLatLngChange }) {
     onLatLngChange(newLat, newLng);
   };
 
+  // Create custom icon with HiLocationMarker
+  const customIcon = L.divIcon({
+    className: "custom-marker-icon",
+    html: renderToStaticMarkup(
+      <HiLocationMarker size={32} className="text-blue-secondary" />
+    ),
+  });
+
   return (
     <>
       <MapContainer
@@ -65,6 +76,7 @@ export default function MapInput({ lat, lng, onLatLngChange }) {
 
         {markerLat !== null && markerLng !== null && (
           <Marker
+            icon={customIcon}
             position={[markerLat, markerLng]}
             draggable={true}
             eventHandlers={{
