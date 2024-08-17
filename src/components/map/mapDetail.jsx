@@ -29,7 +29,7 @@ export default function MapDetail({ lat, lng, onLatLngChange, mapCenter }) {
 
   return (
     <>
-      <MapContainer center={mapCenter} zoom={14} className="w-4/6">
+      <MapContainer center={mapCenter} zoom={14} className="w-full">
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

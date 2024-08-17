@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "@/components/navbar";
-import { FaLocationDot } from "react-icons/fa6";
+import { FaLocationDot, FaShower } from "react-icons/fa6";
 import { Link, useParams } from "react-router-dom";
 import { IoLogoWhatsapp } from "react-icons/io";
 import Footer from "@/components/footer";
@@ -20,6 +20,8 @@ import { Input } from "@/components/ui/input";
 import Button from "@/components/button";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
+import { FaBed, FaBuilding, FaCar } from "react-icons/fa";
+import { Gi3dStairs, GiPoland, GiSofa } from "react-icons/gi";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -96,7 +98,7 @@ export default function DetailProperty() {
       ) : (
         <div className="mx-5">
           <div className="flex gap-5">
-            <div className="w-3/5">
+            <div className="w-2/3">
               <div>
                 <Swiper
                   navigation={true}
@@ -109,141 +111,60 @@ export default function DetailProperty() {
                       <img
                         src={`https://skkm.online/storage/${imageObj.image}`}
                         alt={`Gambar Detail Properti ${index + 1}`}
-                        className="rounded-lg w-full h-screen"
+                        className="rounded-lg w-full h-[32rem]"
                       />
                     </SwiperSlide>
                   ))}
                 </Swiper>
-              </div>
-              <div className="flex items-center justify-between mt-3">
-                <p className=" text-3xl font-bold">{properties.name}</p>
-                <p className=" text-3xl font-bold">
-                  {formatCurrency(properties.price)}
-                </p>
-              </div>
-              <div className="my-5">
-                <div className=" flex gap-1 items-center">
-                  <FaLocationDot className="text-blue-secondary" />
-                  <p className=" font-bold">
-                    Provinsi {properties.province}, Kota/Kabupaten{" "}
-                    {properties.city}, Kelurahan {properties.district}
+                <div className="flex  justify-between mt-3">
+                  <p className=" text-3xl font-bold text-blue-primary">
+                    {properties.name}
                   </p>
-                </div>
-                <p className="font-bold mb-3">{properties.address}</p>
-              </div>
-              <div className="flex items-center gap-3 mb-3">
-                <p>Kamar Tidur</p>
-                <p className="font-bold">{properties.bedrooms}</p>
-              </div>
-              <div className="flex items-center gap-3 mb-3">
-                <p>Kamar Mandi</p>
-                <p className="font-bold">{properties.bathrooms}</p>
-              </div>
-              <div className="flex items-center gap-3 mb-3">
-                <p>Furnished</p>
-                <p className="font-bold">{properties.furnished}</p>
-              </div>
-              <div className="flex items-center gap-3 mb-3">
-                <p>Luas Bangunan</p>
-                <p className="font-bold">{properties.building_area}</p>
-              </div>
-              <div className="flex items-center gap-3 mb-3">
-                <p>Luas Tanah</p>
-                <p className="font-bold">{properties.land_area}</p>
-              </div>
-              <div className="flex items-center gap-3 mb-3">
-                <p>Garasi</p>
-                <p className="font-bold">{properties.garage}</p>
-              </div>
-              <div className="flex items-center gap-3 mb-3">
-                <p>Jumlah Lantai</p>
-                <p className="font-bold">{properties.jumlah_lantai}</p>
-              </div>
-              <div className="my-4">
-                <a
-                  href={properties.gmaps_link}
-                  className="text-3xl text-blue-500"
-                >
-                  Link Google Maps
-                </a>
-              </div>
-              {properties.latitude !== null &&
-                properties.longitude !== null && (
-                  <MapDetail
-                    lat={properties.latitude}
-                    lng={properties.longitude}
-                    mapCenter={[properties.latitude, properties.longitude]}
-                  />
-                )}
-
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <p className="text-xl mx-5 my-5">Simulasi KPR</p>
-                <div className=" w-1/2 m-5">
-                  <Input
-                    className="my-5"
-                    placeholder="Harga Properti"
-                    type="text"
-                    name="propertyPrice"
-                    register={register}
-                    error={errors.propertyPrice?.message}
-                  />
-                  <Input
-                    className="my-5"
-                    placeholder="Uang Muka"
-                    type="text"
-                    name="downPayment"
-                    register={register}
-                    error={errors.downPayment?.message}
-                  />
-                  <Input
-                    className="my-5"
-                    placeholder="Suku Bunga (%)"
-                    type="text"
-                    name="interestRate"
-                    register={register}
-                    error={errors.interestRate?.message}
-                  />
-                  <Input
-                    className="my-5"
-                    placeholder="Jangka Waktu (Tahun)"
-                    type="text"
-                    name="timePeriod"
-                    register={register}
-                    error={errors.timePeriod?.message}
-                  />
-                </div>
-
-                <Button
-                  label="SIMULASIKAN"
-                  className="text-white bg-blue-secondary w-80 m-5 py-2 text-center rounded-lg"
-                />
-
-                {simulatedKpr && (
-                  <div className=" w-fit m-5 bg-slate-600 rounded p-5 text-white">
-                    <p className="text-xl mb-3">Hasil Simulasi KPR</p>
-                    <p className="mb-3">
-                      Angsuran Bulanan: {simulatedKpr.angsuran_bulanan}
-                    </p>
-                    <p className="mb-3">
-                      Jumlah Pinjaman: {simulatedKpr.jumlah_pinjaman}
-                    </p>
-                  </div>
-                )}
-              </form>
-              <div className="border rounded-lg bg-gray-primary p-3 my-5">
-                <p className="font-bold">DESKRIPSI SELENGKAPNYA</p>
-                <p>{properties.description}</p>
-                <div className="my-4">
-                  <a
-                    href={properties.other_links}
-                    className="text-3xl text-blue-500"
-                  >
-                    Link Tambahan
-                  </a>
+                  <p className=" text-3xl font-bold">
+                    {formatCurrency(properties.price)}
+                  </p>
                 </div>
               </div>
             </div>
-            <div className="flex justify-center h-fit gap-5 mt-64">
+
+            <div className="w-1/3">
+              <div className="mb-4">
+                <div className="flex items-center gap-3 mb-3">
+                  <FaBed className="text-2xl" />
+                  <p>Kamar Tidur</p>
+                  <p className="font-bold">{properties.bedrooms}</p>
+                </div>
+                <div className="flex items-center gap-3 mb-3">
+                  <FaShower className="text-2xl" />
+                  <p>Kamar Mandi</p>
+                  <p className="font-bold">{properties.bathrooms}</p>
+                </div>
+                <div className="flex items-center gap-3 mb-3">
+                  <GiSofa className="text-2xl" />
+                  <p>Furnished</p>
+                  <p className="font-bold">{properties.furnished}</p>
+                </div>
+                <div className="flex items-center gap-3 mb-3">
+                  <FaBuilding className="text-2xl" />
+                  <p>Luas Bangunan</p>
+                  <p className="font-bold">{properties.building_area}</p>
+                </div>
+                <div className="flex items-center gap-3 mb-3">
+                  <GiPoland className="text-2xl" />
+                  <p>Luas Tanah</p>
+                  <p className="font-bold">{properties.land_area}</p>
+                </div>
+                <div className="flex items-center gap-3 mb-3">
+                  <FaCar className="text-2xl" />
+                  <p>Garasi</p>
+                  <p className="font-bold">{properties.garage}</p>
+                </div>
+                <div className="flex items-center gap-3 mb-3">
+                  <Gi3dStairs className="text-2xl" />
+                  <p>Jumlah Lantai</p>
+                  <p className="font-bold">{properties.jumlah_lantai}</p>
+                </div>
+              </div>
               <div className="shadow-xl p-6 rounded-lg border text-center">
                 <p className="text-center pb-5 font-bold text-5xl">
                   {properties.user.name}
@@ -260,6 +181,113 @@ export default function DetailProperty() {
               </div>
             </div>
           </div>
+          {/* Map and Address Section */}
+          <div className="mt-5">
+            <div className="flex items-center gap-5">
+              {/* Map Section */}
+              <div className="w-1/2">
+                {properties.latitude !== null &&
+                  properties.longitude !== null && (
+                    <MapDetail
+                      lat={properties.latitude}
+                      lng={properties.longitude}
+                      mapCenter={[properties.latitude, properties.longitude]}
+                    />
+                  )}
+              </div>
+
+              {/* Address Section */}
+              <div className="w-1/2">
+                <div className="flex gap-1 items-center mb-3">
+                  <FaLocationDot className="text-blue-secondary" />
+                  <p className="font-bold text-xl">
+                    Provinsi {properties.province}, Kota/Kabupaten{" "}
+                    {properties.city}, Kelurahan {properties.district}
+                  </p>
+                </div>
+                <p className="font-bold text-xl mb-3">{properties.address}</p>
+                <a
+                  href={properties.gmaps_link}
+                  className="text-3xl text-blue-500"
+                >
+                  Link Google Maps
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Bagian bawah seperti deskripsi properti, KPR simulation, dll. */}
+          <div className="my-5">
+            <p className="font-bold text-xl">DESKRIPSI SELENGKAPNYA</p>
+            <div className="border rounded-lg bg-gray-primary p-3 my-5">
+              <p>{properties.description}</p>
+              <a
+                href={properties.other_links}
+                className="text-3xl text-blue-500"
+              >
+                Link Tambahan
+              </a>
+            </div>
+          </div>
+
+          {/* Bagian simulasi KPR */}
+          <p className="text-xl my-5">Simulasi KPR</p>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex justify-around"
+          >
+            <div className="w-1/2">
+              <Input
+                className="my-5"
+                placeholder="Harga Properti"
+                type="text"
+                name="propertyPrice"
+                defaultValue={properties.price}
+                register={register}
+                error={errors.propertyPrice?.message}
+              />
+              <Input
+                className="my-5"
+                placeholder="Uang Muka"
+                type="text"
+                name="downPayment"
+                register={register}
+                error={errors.downPayment?.message}
+              />
+              <Input
+                className="my-5"
+                placeholder="Suku Bunga (%)"
+                type="text"
+                name="interestRate"
+                register={register}
+                error={errors.interestRate?.message}
+              />
+              <Input
+                className="my-5"
+                placeholder="Jangka Waktu (Tahun)"
+                type="text"
+                name="timePeriod"
+                register={register}
+                error={errors.timePeriod?.message}
+              />
+              <Button
+                label="SIMULASIKAN"
+                className="text-white bg-blue-secondary w-80 my-5 py-2 text-center rounded-lg"
+              />
+            </div>
+
+            {simulatedKpr && (
+              <div className="w-fit bg-slate-600 rounded p-5 text-white">
+                <p className="text-xl mb-3">Hasil Simulasi KPR</p>
+                <p className="mb-3">
+                  Angsuran Bulanan: {simulatedKpr.angsuran_bulanan}
+                </p>
+                <p className="mb-3">
+                  Jumlah Pinjaman: {simulatedKpr.jumlah_pinjaman}
+                </p>
+              </div>
+            )}
+          </form>
         </div>
       )}
       <Footer />
