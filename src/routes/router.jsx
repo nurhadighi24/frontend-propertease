@@ -3,11 +3,13 @@ import DetailArticle from "@/pages/detailArticle";
 import DetailProperty from "@/pages/detailProperty";
 import Home from "@/pages/home";
 import IklanSaya from "@/pages/iklanSaya";
+import InputOtp from "@/pages/inputOtp";
 import Login from "@/pages/login";
 import PaketIklan from "@/pages/paketIklan";
 import PasangIklan from "@/pages/pasangIklan";
 import Register from "@/pages/register";
 import RentProperty from "@/pages/rentProperty";
+import ReqEmailOtp from "@/pages/reqEmailOtp";
 import SaleProperty from "@/pages/saleProperty";
 import TentangKami from "@/pages/tentangKami";
 import UpdateProfile from "@/pages/updateProfile";
@@ -75,6 +77,14 @@ export default function Router() {
     {
       path: "/pasang-iklan",
       element: tokenLocal ? <PasangIklan /> : <Navigate to="/login" />,
+    },
+    {
+      path: "/reqemailotp",
+      element: <ReqEmailOtp />,
+    },
+    {
+      path: "/inputotp",
+      element: <InputOtp />,
     },
   ]);
   return <RouterProvider router={router} />;

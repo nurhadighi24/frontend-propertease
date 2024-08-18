@@ -1,45 +1,38 @@
-import React, { useState } from "react";
-import Button from "@/components/button";
-import Navbar from "@/components/navbar";
-import { Input } from "@/components/ui/input";
-
-import { FaRegCheckCircle, FaRegEye } from "react-icons/fa";
-import { FaRegEyeSlash } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
 import Footer from "@/components/footer";
-
+import Navbar from "@/components/navbar";
+import React, { useState } from "react";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import loginAcc from "@/utils/apis/auth/login";
-import { useToken } from "@/utils/context/tokenContext";
+import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import { Loading } from "@/components/loading";
+import Button from "@/components/button";
+import { Input } from "@/components/ui/input";
+import { FaRegCheckCircle, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { CrossCircledIcon } from "@radix-ui/react-icons";
+import { postInputOtp } from "@/utils/apis/auth/resetPassword";
 
 const schema = z.object({
-  email: z
-    .string()
-    .min(1, { message: "Email harus diisi" })
-    .email({ message: "Isi dengan format email yang benar" }),
+  otp_code: z.string().min(1, { message: "harus diisi 6 karakter" }),
   password: z
     .string()
     .min(1, { message: "Kata sandi harus diisi" })
     .min(6, { message: "Kata sandi harus terdiri dari 6 karakter" }),
 });
 
-export default function Login() {
+export default function InputOtp() {
   const [showPassword, setShowPassword] = useState(false);
   const [showIcon, setShowIcon] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
-  const {
-    saveTokenAndUser,
-    saveTokenToSessionAndUser,
-    tokenLocal,
-    tokenSession,
-  } = useToken();
 
   const {
     register,
@@ -47,29 +40,29 @@ export default function Login() {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
+    defaultValues: {
+      otp_code: "",
+    },
   });
-
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword);
-    setShowIcon(!showIcon);
-  };
 
   async function onSubmit(data) {
     try {
       setIsLoading(true);
-      const result = await loginAcc(data.email, data.password);
-      const userName = result.data.user.name;
-      saveTokenAndUser(result.data.access_token, userName);
-      localStorage.setItem("userEmail", data.email);
-      localStorage.setItem("accessToken", result.data.access_token);
-      localStorage.setItem("user", JSON.stringify(userName));
+      const newAcc = {
+        code: data.otp_code,
+        passwordOTP: data.password,
+      };
+      await postInputOtp(newAcc);
+      //   console.log(result.data);
       setIsLoading(false);
-      navigate("/");
+      navigate("/login");
       toast({
         title: (
           <div className="flex items-center gap-3">
             <FaRegCheckCircle className="text-[#05E500] text-3xl" />
-            <span className=" text-base font-semibold">Berhasil Login!</span>
+            <span className=" text-base font-semibold">
+              Berhasil mengubah password!
+            </span>
           </div>
         ),
       });
@@ -80,36 +73,39 @@ export default function Login() {
         title: (
           <div className="flex items-center">
             <CrossCircledIcon />
-            <span className="ml-2">Gagal Masuk Akun!</span>
+            <span className="ml-2">Gagal Mengubah password!</span>
           </div>
         ),
-        description: "Pastikan Email dan Password benar",
+        description: "Pastikan OTP dan password baru terisi dengan benar",
       });
     } finally {
       setIsLoading(false);
     }
   }
 
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+    setShowIcon(!showIcon);
+  };
+
   return (
     <>
       <Navbar />
-      <div className="bg-white rounded-2xl shadow-2xl mx-5 my-20 flex flex-col items-center ">
-        <div>
-          <p className="text-center text-3xl font-bold py-5">
-            Sudah pernah bergabung sebelumnya? Yuk Masuk
-          </p>
-        </div>
-        <form className="w-2/6" onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex justify-center items-center">
+        {/* Wrapper container */}
+        <form className="my-5" onSubmit={handleSubmit(onSubmit)}>
+          <p>OTP</p>
           <Input
-            placeholder="Email"
+            placeholder="OTP"
             className="my-5"
-            type="email"
+            type="text"
             id="inputEmail"
-            name="email"
+            name="otp_code"
             register={register}
-            error={errors.email?.message}
+            error={errors.otp_code?.message}
           />
-          <div className=" relative">
+          <div className=" relative my-5">
+            <p>Password Baru</p>
             <Input
               placeholder="Password"
               className=""
@@ -132,26 +128,13 @@ export default function Login() {
               <Loading />
             ) : (
               <Button
-                label="Masuk"
+                label="reset password"
                 className="text-white bg-blue-secondary w-80 py-2 text-center rounded-lg"
                 type="submit"
               />
             )}
           </div>
         </form>
-
-        <p className="my-5">
-          Belum punya akun?{" "}
-          <Link className="font-bold text-lg" to="/register">
-            Daftar
-          </Link>
-        </p>
-        <p className="my-5">
-          Lupa Password?{" "}
-          <Link className="font-bold text-lg" to="/reqemailotp">
-            reset password
-          </Link>
-        </p>
       </div>
       <Footer />
     </>
