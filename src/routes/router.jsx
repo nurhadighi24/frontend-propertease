@@ -1,4 +1,5 @@
 import ChoosenProperty from "@/pages/choosenProperty";
+import ContactUs from "@/pages/contactUs";
 import DetailArticle from "@/pages/detailArticle";
 import DetailProperty from "@/pages/detailProperty";
 import Home from "@/pages/home";
@@ -85,6 +86,10 @@ export default function Router() {
     {
       path: "/inputotp",
       element: <InputOtp />,
+    },
+    {
+      path: "/contactus",
+      element: <ContactUs />,
     },
   ]);
   return <RouterProvider router={router} />;

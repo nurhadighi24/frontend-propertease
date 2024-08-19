@@ -9,7 +9,9 @@ export default function Footer() {
         <Link className=" text-white" to="/tentang-kami">
           Tentang Kami
         </Link>
-        <Link className=" text-white">Hubungi Kami</Link>
+        <Link className=" text-white" to="/contactus">
+          Hubungi Kami
+        </Link>
       </div>
       <div className="flex items-center">
         <Link className="text-white font-bold text-3xl" to="/">
