@@ -50,7 +50,7 @@ export default function InputOtp() {
       setIsLoading(true);
       const newAcc = {
         code: data.otp_code,
-        passwordOTP: data.password,
+        password: data.password,
       };
       await postInputOtp(newAcc);
       //   console.log(result.data);

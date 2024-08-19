@@ -14,7 +14,7 @@ const reqEmailOtp = async (email) => {
 
 const postInputOtp = async (email) => {
   try {
-    const response = await axios.post(`${BASE_URL}password/reset`, email);
+    const response = await axios.post(`${BASE_URL}/password/reset`, email);
 
     return response.data;
   } catch (error) {
