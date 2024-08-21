@@ -17,10 +17,9 @@ export default function CardIklanSaya({
 }) {
   return (
     <div className="flex justify-center items-center mx-5 gap-3 my-10 border rounded-xl shadow-2xl">
-      <div className=" w-2/6">
-        <img src={src} alt={alt} className="w-[30rem] h-[20rem] rounded-xl" />
-      </div>
-      <div>
+      <img src={src} alt={alt} className="w-[30rem] h-[20rem] rounded-xl" />
+
+      <div className="w-4/6 py-5">
         <p className="text-blue-secondary font-bold text-4xl">{titles}</p>
         <div className="flex items-center gap-1 my-3">
           <FaLocationDot className="text-blue-secondary" />

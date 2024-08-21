@@ -197,7 +197,7 @@ export default function DetailProperty() {
               </div>
 
               {/* Address Section */}
-              <div className="w-1/2">
+              <div className="w-1/2 text-center">
                 <div className="flex gap-1 items-center mb-3">
                   <FaLocationDot className="text-blue-secondary" />
                   <p className="font-bold text-xl">
