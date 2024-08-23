@@ -35,7 +35,7 @@ export default function DetailArticle() {
           alt={article.title}
         />
         <p className="font-bold text-3xl my-5">{article.title}</p>
-        <p>{article.description}</p>
+        <p style={{ whiteSpace: "pre-wrap" }}>{article.description}</p>
       </div>
       <Footer />
     </>
