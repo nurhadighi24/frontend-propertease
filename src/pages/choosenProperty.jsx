@@ -134,7 +134,7 @@ export default function ChoosenProperty() {
     <>
       <Navbar />
 
-      <div className="flex items-center justify-between mx-10 py-5">
+      <div className="flex justify-between mx-10 py-5">
         <form onSubmit={handleSearchSubmit} className="relative w-2/6">
           <Input
             type="text"
@@ -160,68 +160,70 @@ export default function ChoosenProperty() {
             </svg>
           </button>
         </form>
-        <DropdownMenu>
-          <DropdownMenuTrigger className="flex justify-between items-center rounded-md bg-white py-3 px-3 border border-blue-primary gap-20">
-            {selectedPropertyType || "Pilih Tipe Properti"}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="10"
-              height="5"
-              viewBox="0 0 10 5"
-              fill="none"
-            >
-              <path d="M5 4L0.669872 0.25L9.33013 0.25L5 4Z" fill="#28303F" />
-            </svg>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem onClick={() => handlePropertyTypeChange("")}>
-              Semua Tipe Penawaran
-            </DropdownMenuItem>
-            {propertyTypes.map((type, index) => (
-              <DropdownMenuItem
-                className="cursor-pointer"
-                key={index}
-                onClick={() => handlePropertyTypeChange(type)}
+        <div className="flex items-center gap-5">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex justify-between items-center rounded-md bg-white py-3 px-3 border border-blue-primary gap-20">
+              {selectedPropertyType || "Pilih Tipe Properti"}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="5"
+                viewBox="0 0 10 5"
+                fill="none"
               >
-                {type}
+                <path d="M5 4L0.669872 0.25L9.33013 0.25L5 4Z" fill="#28303F" />
+              </svg>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onClick={() => handlePropertyTypeChange("")}>
+                Semua Tipe Penawaran
               </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+              {propertyTypes.map((type, index) => (
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  key={index}
+                  onClick={() => handlePropertyTypeChange(type)}
+                >
+                  {type}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger className="flex justify-between items-center rounded-md bg-white py-3 px-3 border border-blue-primary gap-20">
-            {selectedPriceFilter === "below-500"
-              ? "Di Bawah 500 Juta"
-              : selectedPriceFilter === "above-500"
-              ? "Di Atas 500 Juta"
-              : "Filter Harga"}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="10"
-              height="5"
-              viewBox="0 0 10 5"
-              fill="none"
-            >
-              <path d="M5 4L0.669872 0.25L9.33013 0.25L5 4Z" fill="#28303F" />
-            </svg>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem onClick={() => handlePriceFilterChange("")}>
-              Semua Harga
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => handlePriceFilterChange("below-500")}
-            >
-              Di Bawah 500 Juta
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => handlePriceFilterChange("above-500")}
-            >
-              Di Atas 500 Juta
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex justify-between items-center rounded-md bg-white py-3 px-3 border border-blue-primary gap-20">
+              {selectedPriceFilter === "below-500"
+                ? "Di Bawah 500 Juta"
+                : selectedPriceFilter === "above-500"
+                ? "Di Atas 500 Juta"
+                : "Filter Harga"}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="5"
+                viewBox="0 0 10 5"
+                fill="none"
+              >
+                <path d="M5 4L0.669872 0.25L9.33013 0.25L5 4Z" fill="#28303F" />
+              </svg>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onClick={() => handlePriceFilterChange("")}>
+                Semua Harga
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => handlePriceFilterChange("below-500")}
+              >
+                Di Bawah 500 Juta
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => handlePriceFilterChange("above-500")}
+              >
+                Di Atas 500 Juta
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
       {loading ? (
         <Loading />

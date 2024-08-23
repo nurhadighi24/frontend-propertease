@@ -94,6 +94,9 @@ export default function RentProperty() {
     <>
       <Navbar />
       <div className="flex mx-10 py-5 items-center justify-between">
+        <div>
+          <p className="font-bold text-5xl">PROPERTI DISEWAKAN</p>
+        </div>
         <div className=" relative w-2/6 ">
           <Input
             type="text"
@@ -123,9 +126,6 @@ export default function RentProperty() {
               fill="#000000"
             />
           </svg>
-        </div>
-        <div>
-          <p className="font-bold text-5xl">PROPERTI DISEWAKAN</p>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger className="flex justify-between items-center rounded-md bg-white py-3 px-3 border border-blue-primary gap-20">

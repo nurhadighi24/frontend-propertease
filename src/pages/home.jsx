@@ -282,7 +282,7 @@ function Home() {
             />
             <Button
               label="SIMULASIKAN"
-              className="text-white bg-blue-secondary w-80 m-5 py-2 text-center rounded-lg"
+              className="text-white bg-blue-secondary w-80 my-5 py-2 text-center rounded-lg"
             />
           </div>
         </div>

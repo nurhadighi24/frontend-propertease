@@ -27,6 +27,7 @@ import { isAfter, parseISO } from "date-fns";
 import { getDetailProperties } from "@/utils/apis/property/properties";
 import { updateProperty } from "@/utils/apis/property/propertyIklanSaya";
 import { Loading } from "@/components/loading";
+import formatCurrency from "@/utils/currencyIdr";
 
 const schema = z.object({
   propertyName: z.string().min(1, { message: "Nama Properti harus diisi" }),
@@ -439,6 +440,7 @@ export default function PasangIklan() {
               register={register}
               error={errors.propertyPrice?.message}
             />
+            <p>{formatCurrency(watch("propertyPrice"))}</p>
           </div>
           <div>
             <p className="font-bold">Fully Furnished?</p>
@@ -556,6 +558,19 @@ export default function PasangIklan() {
               error={errors.propertyCity?.message}
             />
           </div>
+
+          {/* <div>
+            <p className="font-bold">
+              Kecamatan <span className="text-red-600">*</span>
+            </p>
+            <Input
+              type="text"
+              className="w-max"
+              name="propertySubdistrict"
+              register={register}
+              error={errors.propertySubdistrict?.message}
+            />
+          </div> */}
 
           <div>
             <p className="font-bold">
