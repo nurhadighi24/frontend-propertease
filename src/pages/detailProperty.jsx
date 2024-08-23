@@ -220,7 +220,7 @@ export default function DetailProperty() {
           <div className="my-5">
             <p className="font-bold text-xl">DESKRIPSI SELENGKAPNYA</p>
             <div className="border rounded-lg bg-gray-primary p-3 my-5">
-              <p>{properties.description}</p>
+              <p style={{ whiteSpace: "pre-wrap" }}>{properties.description}</p>
               <a
                 href={properties.other_links}
                 className="text-3xl text-blue-500"
