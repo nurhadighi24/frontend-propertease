@@ -209,6 +209,8 @@ export default function DetailProperty() {
                 <a
                   href={properties.gmaps_link}
                   className="text-3xl text-blue-500"
+                  target="_blank" // Membuka link di tab baru
+                  rel="noopener noreferrer" // Menjaga keamanan link
                 >
                   Link Google Maps
                 </a>
@@ -224,8 +226,10 @@ export default function DetailProperty() {
               <a
                 href={properties.other_links}
                 className="text-3xl text-blue-500"
+                target="_blank" // Membuka link di tab baru
+                rel="noopener noreferrer" // Menjaga keamanan link
               >
-                Link Tambahan
+                {properties.other_links}
               </a>
             </div>
           </div>
