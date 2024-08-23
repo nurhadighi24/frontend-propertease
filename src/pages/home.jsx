@@ -41,6 +41,7 @@ function Home() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -256,6 +257,7 @@ function Home() {
               register={register}
               error={errors.propertyPrice?.message}
             />
+            <p>{formatCurrency(watch("propertyPrice"))}</p>
             <Input
               className="my-5"
               placeholder="Uang Muka"
@@ -264,6 +266,7 @@ function Home() {
               register={register}
               error={errors.downPayment?.message}
             />
+            <p>{formatCurrency(watch("downPayment"))}</p>
             <Input
               className="my-5"
               placeholder="Suku Bunga (%)"

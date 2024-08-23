@@ -51,6 +51,7 @@ export default function DetailProperty() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -258,6 +259,7 @@ export default function DetailProperty() {
                 register={register}
                 error={errors.downPayment?.message}
               />
+              <p>{formatCurrency(watch("downPayment"))}</p>
               <Input
                 className="my-5"
                 placeholder="Suku Bunga (%)"
