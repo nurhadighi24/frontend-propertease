@@ -76,7 +76,7 @@ export default function ContactUs() {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center items-center border rounded-2xl border-black bg-blue-primary m-5 gap-5">
+      <div className="flex justify-between items-center border rounded-2xl border-black bg-blue-primary m-5 gap-5">
         <div className="text-white">
           <h2 className="text-3xl font-bold">Hubungi Kami</h2>
           <p>

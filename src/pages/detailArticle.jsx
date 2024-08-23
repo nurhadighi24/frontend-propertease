@@ -27,7 +27,7 @@ export default function DetailArticle() {
   return (
     <>
       <Navbar />
-      <strong className="m-5">Artikel</strong>
+      <strong className="m-5 text-2xl">Artikel</strong>
       <div className="m-10">
         <img
           className="rounded-xl"
