@@ -85,7 +85,7 @@ export default function ContactUs() {
           </p>
         </div>
         <div>
-          <img src="../public/contactus-image.png" alt="" />
+          <img src="/contactus-image.png" alt="" />
         </div>
       </div>
 
