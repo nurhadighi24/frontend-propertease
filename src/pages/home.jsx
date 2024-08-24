@@ -236,9 +236,9 @@ function Home() {
           <p className="text-3xl mx-5 text-center">Simulasi KPR</p>
           <div className="flex-grow border-t-4 border-gray-300"></div>
         </div>
-        <div className="md:flex md:justify-between items-center gap-5 m-5">
+        <div className="md:flex md:justify-between  gap-5 m-5">
           <div className="w-3/6">
-            <p className="text-justify md:text-2xl font-semibold">
+            <p className="text-justify md:text-xl font-semibold">
               Simulasi KPR (Kredit Pemilikan Rumah) adalah alat yang membantu
               calon pembeli rumah menghitung angsuran dan biaya pinjaman KPR.
               Dengan memasukkan jumlah pinjaman, tenor, suku bunga, dan uang
@@ -287,20 +287,19 @@ function Home() {
               label="SIMULASIKAN"
               className="text-white bg-blue-secondary w-80 my-5 py-2 text-center rounded-lg"
             />
+            {simulatedKpr && (
+              <div className=" w-fit my-5 bg-slate-600 rounded p-5 text-white">
+                <p className="text-xl mb-3">Hasil Simulasi KPR</p>
+                <p className="mb-3">
+                  Angsuran Bulanan: {simulatedKpr.angsuran_bulanan}
+                </p>
+                <p className="mb-3">
+                  Jumlah Pinjaman: {simulatedKpr.jumlah_pinjaman}
+                </p>
+              </div>
+            )}
           </div>
         </div>
-
-        {simulatedKpr && (
-          <div className=" w-fit m-5 bg-slate-600 rounded p-5 text-white">
-            <p className="text-xl mb-3">Hasil Simulasi KPR</p>
-            <p className="mb-3">
-              Angsuran Bulanan: {simulatedKpr.angsuran_bulanan}
-            </p>
-            <p className="mb-3">
-              Jumlah Pinjaman: {simulatedKpr.jumlah_pinjaman}
-            </p>
-          </div>
-        )}
       </form>
       <div className="flex items-center mx-5 my-5">
         <div className="flex-grow border-t-4 border-gray-300"></div>
