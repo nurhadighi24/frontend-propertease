@@ -203,7 +203,8 @@ export default function DetailProperty() {
                   <FaLocationDot className="text-blue-secondary" />
                   <p className="font-bold text-xl">
                     Provinsi {properties.province}, Kota/Kabupaten{" "}
-                    {properties.city}, Kelurahan {properties.district}
+                    {properties.city}, Kelurahan {properties.district},
+                    Kecamatan {properties.kecamatan}
                   </p>
                 </div>
                 <p className="font-bold text-xl mb-3">{properties.address}</p>

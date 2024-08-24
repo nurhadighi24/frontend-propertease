@@ -47,6 +47,7 @@ const schema = z.object({
     .string()
     .min(1, { message: "Kota/Kabupaten Properti harus diisi" }),
   propertyDistrict: z.string().min(1, { message: "Kelurahan Harus Diisi" }),
+  propertyKecamatan: z.string().min(1, { message: "Kecataman Harus Diisi" }),
   propertyAddress: z.string().min(1, { message: "Alamat Lengkap harus diisi" }),
   propertyOfferType: z.enum(["jual", "sewa"]),
   propertyType: z.enum(["rumah", "apartement", "tanah"]),
@@ -164,6 +165,7 @@ export default function PasangIklan() {
         setValue("propertyProvince", result.data.province);
         setValue("propertyCity", result.data.city);
         setValue("propertyDistrict", result.data.district);
+        setValue("propertyKecamatan", result.data.kecamatan);
         setValue("propertyAddress", result.data.address);
         setValue("propertyImage", result.data.image);
         setValue("rentalPeriodStart", result.data.rental_start_date || "");
@@ -214,6 +216,7 @@ export default function PasangIklan() {
         province: data.propertyProvince,
         city: data.propertyCity,
         district: data.propertyDistrict,
+        kecamatan: data.propertyKecamatan,
         address: data.propertyAddress,
         offer_type: data.propertyOfferType,
         property_type: data.propertyType,
@@ -279,6 +282,7 @@ export default function PasangIklan() {
         province: data.propertyProvince,
         city: data.propertyCity,
         district: data.propertyDistrict,
+        kecamatan: data.propertyKecamatan,
         address: data.propertyAddress,
         offer_type: data.propertyOfferType,
         property_type: data.propertyType,
@@ -559,18 +563,18 @@ export default function PasangIklan() {
             />
           </div>
 
-          {/* <div>
+          <div>
             <p className="font-bold">
               Kecamatan <span className="text-red-600">*</span>
             </p>
             <Input
               type="text"
               className="w-max"
-              name="propertySubdistrict"
+              name="propertyKecamatan"
               register={register}
-              error={errors.propertySubdistrict?.message}
+              error={errors.propertyKecamatan?.message}
             />
-          </div> */}
+          </div>
 
           <div>
             <p className="font-bold">
