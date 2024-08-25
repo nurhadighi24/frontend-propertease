@@ -236,7 +236,7 @@ function Home() {
           <p className="text-3xl mx-5 text-center">Simulasi KPR</p>
           <div className="flex-grow border-t-4 border-gray-300"></div>
         </div>
-        <div className="md:flex md:justify-between  gap-5 m-5">
+        <div className="md:flex md:justify-between  gap-5 mx-5">
           <div className="w-3/6">
             <p className="text-justify md:text-xl font-semibold">
               Simulasi KPR (Kredit Pemilikan Rumah) adalah alat yang membantu
@@ -247,10 +247,22 @@ function Home() {
               keuangan, sehingga calon pembeli dapat memilih opsi yang paling
               sesuai dengan kemampuan finansial mereka.
             </p>
+            <div className="flex items-center gap-2">
+              <img src="/logo-bca.png" alt="" className="w-20" />
+              <p>KPR Bank BCA 2.79% 1 Tahun</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <img src="/logo-btn.jpeg" alt="" className="w-20" />
+              <p>KPR Bank BTN 8.88% 2 Tahun</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <img src="/logo-bri.png" alt="" className="w-20" />
+              <p>KPR Bank BRI 3.25% 1 Tahun</p>
+            </div>
           </div>
           <div className="w-3/6">
             <Input
-              className="my-5"
+              className="mb-5"
               placeholder="Harga Properti"
               type="text"
               name="propertyPrice"

@@ -227,7 +227,7 @@ export default function DetailProperty() {
               <p style={{ whiteSpace: "pre-wrap" }}>{properties.description}</p>
               <a
                 href={properties.other_links}
-                className="text-2xl text-blue-500"
+                className="text-xl text-blue-500"
                 target="_blank" // Membuka link di tab baru
                 rel="noopener noreferrer" // Menjaga keamanan link
               >

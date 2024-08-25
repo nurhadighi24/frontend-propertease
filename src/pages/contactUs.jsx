@@ -10,7 +10,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CrossCircledIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FaRegCheckCircle } from "react-icons/fa";
+import { BsFillTelephoneFill } from "react-icons/bs";
+import { FaClock, FaRegCheckCircle } from "react-icons/fa";
+import { IoIosMail, IoLogoWhatsapp } from "react-icons/io";
 import * as z from "zod";
 
 const schema = z.object({
@@ -76,7 +78,7 @@ export default function ContactUs() {
   return (
     <>
       <Navbar />
-      <div className="flex justify-around items-center border rounded-2xl border-black bg-blue-primary m-5 gap-5">
+      <div className="md:flex justify-around items-center border rounded-2xl border-black bg-blue-primary m-5 gap-5">
         <div className="text-white">
           <h2 className="text-3xl font-bold">Hubungi Kami</h2>
           <p>
@@ -89,68 +91,102 @@ export default function ContactUs() {
         </div>
       </div>
 
-      <form
-        className="border border-black w-96 p-5 rounded-2xl m-5"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <p className="font-bold">
-          Nama <span className="text-red-600">*</span>
-        </p>
-        <Input
-          type="text"
-          placeholder="Masukkan Nama"
-          className="w-4/6 mb-3"
-          id="inputName"
-          name="name"
-          register={register}
-          error={errors.name?.message}
-        />
-        <p className="font-bold">
-          Email <span className="text-red-600">*</span>
-        </p>
-        <Input
-          type="text"
-          placeholder="Masukkan Email"
-          className="w-4/6 mb-3"
-          id="inputEmail"
-          name="email"
-          register={register}
-          error={errors.email?.message}
-        />
-        <p className="font-bold">
-          Nomor Telepon <span className="text-red-600">*</span>
-        </p>
-        <Input
-          type="text"
-          placeholder="Masukkan Nomor Telepon"
-          className="w-4/6 mb-3"
-          id="inputNoPhone"
-          name="phone"
-          register={register}
-          error={errors.phone?.message}
-        />
-        <p className="font-bold">
-          Pesan <span className="text-red-600">*</span>
-        </p>
-        <Textarea
-          placeholder=""
-          className="w-4/6 mb-10"
-          name="message"
-          register={register}
-          error={errors.message?.message}
-        />
-        <div className="w-full flex justify-center my-5">
-          {isLoading ? (
-            <Loading />
-          ) : (
-            <Button
-              label="Submit"
-              className="text-white bg-blue-secondary w-80 py-2 text-center rounded-lg"
-              type="submit"
-            />
-          )}
+      <div className="md:flex justify-around">
+        <form
+          className="border border-black w-1/2 p-5 rounded-2xl m-5"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <p className="font-bold">
+            Nama <span className="text-red-600">*</span>
+          </p>
+          <Input
+            type="text"
+            placeholder="Masukkan Nama"
+            className="w-4/6 mb-3"
+            id="inputName"
+            name="name"
+            register={register}
+            error={errors.name?.message}
+          />
+          <p className="font-bold">
+            Email <span className="text-red-600">*</span>
+          </p>
+          <Input
+            type="text"
+            placeholder="Masukkan Email"
+            className="w-4/6 mb-3"
+            id="inputEmail"
+            name="email"
+            register={register}
+            error={errors.email?.message}
+          />
+          <p className="font-bold">
+            Nomor Telepon <span className="text-red-600">*</span>
+          </p>
+          <Input
+            type="text"
+            placeholder="Masukkan Nomor Telepon"
+            className="w-4/6 mb-3"
+            id="inputNoPhone"
+            name="phone"
+            register={register}
+            error={errors.phone?.message}
+          />
+          <p className="font-bold">
+            Pesan <span className="text-red-600">*</span>
+          </p>
+          <Textarea
+            placeholder=""
+            className="w-4/6 mb-10"
+            name="message"
+            register={register}
+            error={errors.message?.message}
+          />
+          <div className="w-full flex justify-center my-5">
+            {isLoading ? (
+              <Loading />
+            ) : (
+              <Button
+                label="Submit"
+                className="text-white bg-blue-secondary w-80 py-2 text-center rounded-lg"
+                type="submit"
+              />
+            )}
+          </div>
+        </form>
+        <div className="border border-black w-1/2 rounded-2xl m-5 p-5">
+          <p>Layanan Keluhan Pelanggan</p>
+          <div className="flex items-center gap-3 my-3">
+            <IoIosMail className="text-2xl text-blue-secondary" />
+            <div>
+              <p>Email</p>
+              <p className="text-blue-secondary">propertease@gmail.com</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 my-3">
+            <BsFillTelephoneFill className="text-2xl text-blue-secondary" />
+            <div>
+              <p>Nomor Telepon</p>
+              <p>01234567890</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 my-3">
+            <IoLogoWhatsapp className="text-2xl text-blue-secondary" />
+            <div>
+              <p>Whatsapp</p>
+              <p>01234567890</p>
+            </div>
+          </div>
+          <div className="flex gap-3 my-3">
+            <FaClock className="text-2xl text-blue-secondary" />
+            <div>
+              <p>Jam Operasional</p>
+              <p>Senin-Jumat (10:00 - 15:00 WIB)</p>
+              <p>Sabtu (10:00 - 13:00 WIB)</p>
+            </div>
+          </div>
         </div>
-      </form>
+      </div>
       <Footer />
     </>
   );
