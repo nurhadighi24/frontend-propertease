@@ -233,7 +233,7 @@ function Home() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-center mx-5 my-5">
           <div className="flex-grow border-t-4 border-gray-300"></div>
-          <p className="text-3xl mx-5 text-center">Simulasi KPR</p>
+          <p className="text-3xl mx-5 text-center font-bold">Simulasi KPR</p>
           <div className="flex-grow border-t-4 border-gray-300"></div>
         </div>
         <div className="md:flex md:justify-between  gap-5 mx-5">
@@ -315,7 +315,9 @@ function Home() {
       </form>
       <div className="flex items-center mx-5 my-5">
         <div className="flex-grow border-t-4 border-gray-300"></div>
-        <p className="text-3xl mx-5 text-center">Kenapa PropertEase?</p>
+        <p className="text-3xl mx-5 text-center font-bold">
+          Kenapa PropertEase?
+        </p>
         <div className="flex-grow border-t-4 border-gray-300"></div>
       </div>
       <div className=" md:flex md:justify-around grid grid-cols-2 max-sm:grid-cols-1 ">
@@ -338,7 +340,9 @@ function Home() {
       </div>
       <div className="flex items-center mx-5 my-5">
         <div className="flex-grow border-t-4 border-gray-300"></div>
-        <p className="text-3xl mx-5 text-center">Artikel PropertEase</p>
+        <p className="text-3xl mx-5 text-center font-bold">
+          Artikel PropertEase
+        </p>
         <div className="flex-grow border-t-4 border-gray-300"></div>
       </div>
 
