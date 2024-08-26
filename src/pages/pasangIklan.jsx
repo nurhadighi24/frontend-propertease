@@ -118,12 +118,12 @@ export default function PasangIklan() {
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      propertyBathroom: 0,
-      propertyBedroom: 0,
-      propertyBuildingArea: 0,
-      propertyLandArea: 0,
-      propertyGarage: 0,
-      propertyFloor: 0,
+      propertyBathroom: "",
+      propertyBedroom: "",
+      propertyBuildingArea: "",
+      propertyLandArea: "",
+      propertyGarage: "",
+      propertyFloor: "",
     },
   });
 
