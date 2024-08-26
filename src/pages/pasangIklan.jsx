@@ -118,12 +118,12 @@ export default function PasangIklan() {
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      propertyBathroom: "",
-      propertyBedroom: "",
-      propertyBuildingArea: "",
-      propertyLandArea: "",
-      propertyGarage: "",
-      propertyFloor: "",
+      propertyBathroom: 0,
+      propertyBedroom: 0,
+      propertyBuildingArea: 0,
+      propertyLandArea: 0,
+      propertyGarage: 0,
+      propertyFloor: 0,
     },
   });
 
@@ -470,7 +470,7 @@ export default function PasangIklan() {
             <p className="font-bold">Kamar Tidur</p>
             <Input
               type="number"
-              placeholder="1"
+              placeholder=""
               className=""
               name="propertyBedroom"
               register={register}
@@ -481,7 +481,7 @@ export default function PasangIklan() {
             <p className="font-bold">Kamar Mandi</p>
             <Input
               type="number"
-              placeholder="1"
+              placeholder=""
               className=""
               name="propertyBathroom"
               register={register}
@@ -492,7 +492,7 @@ export default function PasangIklan() {
             <p className="font-bold">Luas Bangunan</p>
             <Input
               type="number"
-              placeholder="1"
+              placeholder=""
               className=""
               name="propertyBuildingArea"
               register={register}
@@ -503,7 +503,7 @@ export default function PasangIklan() {
             <p className="font-bold">Luas Tanah</p>
             <Input
               type="number"
-              placeholder="1"
+              placeholder=""
               className=""
               name="propertyLandArea"
               register={register}
@@ -514,7 +514,7 @@ export default function PasangIklan() {
             <p className="font-bold">Garasi</p>
             <Input
               type="number"
-              placeholder="1"
+              placeholder=""
               className=""
               name="propertyGarage"
               register={register}
@@ -525,7 +525,7 @@ export default function PasangIklan() {
             <p className="font-bold">Jumlah Lantai</p>
             <Input
               type="number"
-              placeholder="1"
+              placeholder=""
               className=""
               name="propertyFloor"
               register={register}
