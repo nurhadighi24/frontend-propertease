@@ -248,8 +248,8 @@ export default function DetailProperty() {
                 <p>KPR Bank BCA 2.79% 1 Tahun</p>
               </div>
               <div className="flex items-center gap-2">
-                <img src="/logo-btn.jpeg" alt="" className="w-20" />
-                <p>KPR Bank BTN 8.88% 2 Tahun</p>
+                <img src="/logo-bni.png" alt="" className="w-20" />
+                <p>KPR Bank BNI 2.75% 1 Tahun</p>
               </div>
               <div className="flex items-center gap-2">
                 <img src="/logo-bri.png" alt="" className="w-20" />
