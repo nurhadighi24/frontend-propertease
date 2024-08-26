@@ -447,7 +447,9 @@ export default function PasangIklan() {
             <p>{formatCurrency(watch("propertyPrice"))}</p>
           </div>
           <div>
-            <p className="font-bold">Fully Furnished?</p>
+            <p className="font-bold">
+              Fully Furnished?<span className="text-red-600">*</span>
+            </p>
             <CustomRadioGroup
               className="flex items-center border-2 border-gray-400 rounded-xl w-max mb-2"
               options={[
