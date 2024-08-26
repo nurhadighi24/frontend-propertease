@@ -199,8 +199,8 @@ export default function DetailProperty() {
 
               {/* Address Section */}
               <div className="w-1/2 text-center">
-                <div className="flex gap-1 items-center mb-3">
-                  <FaLocationDot className="text-blue-secondary" />
+                <div className="flex gap-1 mb-3">
+                  {/* <FaLocationDot className="text-blue-secondary mt-1" /> */}
                   <p className="font-bold text-xl">
                     Provinsi {properties.province}, Kota/Kabupaten{" "}
                     {properties.city}, Kelurahan {properties.district},
@@ -242,6 +242,20 @@ export default function DetailProperty() {
             onSubmit={handleSubmit(onSubmit)}
             className="flex justify-around"
           >
+            <div>
+              <div className="flex items-center gap-2">
+                <img src="/logo-bca.png" alt="" className="w-20" />
+                <p>KPR Bank BCA 2.79% 1 Tahun</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <img src="/logo-btn.jpeg" alt="" className="w-20" />
+                <p>KPR Bank BTN 8.88% 2 Tahun</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <img src="/logo-bri.png" alt="" className="w-20" />
+                <p>KPR Bank BRI 3.25% 1 Tahun</p>
+              </div>
+            </div>
             <div className="w-1/2">
               <Input
                 className="my-5"
