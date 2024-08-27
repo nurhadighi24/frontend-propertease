@@ -247,7 +247,7 @@ function Home() {
               keuangan, sehingga calon pembeli dapat memilih opsi yang paling
               sesuai dengan kemampuan finansial mereka.
             </p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-5">
               <div>
                 <div className="flex items-center gap-2">
                   <img src="/logo-bca.png" alt="" className="w-20" />

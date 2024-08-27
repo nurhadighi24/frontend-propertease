@@ -242,7 +242,7 @@ export default function DetailProperty() {
             onSubmit={handleSubmit(onSubmit)}
             className="flex justify-around"
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-7">
               <div>
                 <div className="flex items-center gap-2">
                   <img src="/logo-bca.png" alt="" className="w-20" />
