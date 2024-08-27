@@ -242,18 +242,34 @@ export default function DetailProperty() {
             onSubmit={handleSubmit(onSubmit)}
             className="flex justify-around"
           >
-            <div>
-              <div className="flex items-center gap-2">
-                <img src="/logo-bca.png" alt="" className="w-20" />
-                <p>KPR Bank BCA 2.79% 1 Tahun</p>
+            <div className="flex items-center gap-2">
+              <div>
+                <div className="flex items-center gap-2">
+                  <img src="/logo-bca.png" alt="" className="w-20" />
+                  <p>KPR Bank BCA 2.79% 1 Tahun</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <img src="/logo-dki.png" alt="" className="w-20" />
+                  <p>KPR Bank DKI 4.56% 1 Tahun</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <img src="/logo-bni.png" alt="" className="w-20" />
+                  <p>KPR Bank BNI 2.75% 1 Tahun</p>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <img src="/logo-bni.png" alt="" className="w-20" />
-                <p>KPR Bank BNI 2.75% 1 Tahun</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <img src="/logo-bri.png" alt="" className="w-20" />
-                <p>KPR Bank BRI 3.25% 1 Tahun</p>
+              <div>
+                <div className="flex items-center gap-2">
+                  <img src="/logo-permata.png" alt="" className="w-20" />
+                  <p>KPR Bank Permata 9.75% 1 Tahun</p>
+                </div>
+                <div className="flex items-center gap-2 my-5">
+                  <img src="/logo-bri.png" alt="" className="w-20" />
+                  <p>KPR Bank BRI 3.25% 1 Tahun</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <img src="/logo-mandiri.png" alt="" className="w-20" />
+                  <p>KPR Bank Mandiri 14.25% 1 Tahun</p>
+                </div>
               </div>
             </div>
             <div className="w-1/2">
