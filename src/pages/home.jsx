@@ -23,6 +23,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { simulateKpr } from "@/utils/apis/KPR/simulateKRP";
 
+import ReactGA from "react-ga4";
+
 const schema = z.object({
   propertyPrice: z.string().min(1, { message: "Harga properti harus diisi" }),
   downPayment: z.string().min(1, { message: "Uang muka harus diisi" }),
@@ -219,9 +221,18 @@ function Home() {
                     buildingArea={item.building_area}
                     landArea={item.land_area}
                     price={formatCurrency(item.price)}
-                    onClick={() =>
-                      toDetailProperties(item.id, generateSlug(item.name))
-                    }
+                    onClick={() => {
+                      // Tambahkan interaksi ke Google Analytics
+                      ReactGA.event({
+                        category: "Property",
+                        action: "Click Detail",
+                        label: item.name,
+                        nonInteraction: true,
+                      });
+
+                      // Navigasi ke halaman detail properti
+                      toDetailProperties(item.id, generateSlug(item.name));
+                    }}
                     alt={item.name}
                   ></CardHome>
                 </SwiperSlide>
