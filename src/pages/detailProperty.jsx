@@ -25,6 +25,7 @@ import { Gi3dStairs, GiPoland, GiSofa } from "react-icons/gi";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import ReactGA from "react-ga4";
 
 const schema = z.object({
   propertyPrice: z.string().min(1, { message: "Harga properti harus diisi" }),
@@ -58,6 +59,10 @@ export default function DetailProperty() {
   });
 
   useEffect(() => {
+    ReactGA.send({
+      hitType: "pageview",
+      page: `/detail-properti/${id}/${slug}`,
+    });
     fetchData();
   }, []);
 

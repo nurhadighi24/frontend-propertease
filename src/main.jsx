@@ -7,6 +7,9 @@ import { Toaster } from "./components/ui/toaster";
 import { TokenProvider } from "./utils/context/tokenContext";
 import { Provider } from "react-redux";
 import { store } from "./utils/store/indexConfigCart";
+import ReactGA from "react-ga4";
+
+ReactGA.initialize("G-YXNC46JBGR");
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
